@@ -1,0 +1,59 @@
+#### general settings
+name: BPN
+train_type: bnn-r2d2
+eval_type: bnn
+gpu_ids: [2]
+
+
+#### datasets
+data:
+  name: "CIFAR10"
+  image_size: 32
+  train_path: None
+
+#### Checkpoint settings
+checkpoints:
+  path: "./checkpoints/R2D2_CondAlexNet_CIFAR10/"
+  save_checkpoint_freq: 2
+
+
+#### Optimizer settings
+optimizer:
+  opt_method: "ADAM"
+  lr: 0.001  # Learning rate
+  weight_decay: 0.0001
+
+#### training settings: learning rate scheme, loss, optimizer
+train:
+  model_name: "R2D2AlexNet"
+
+  num_epochs: 2000
+  batch_size: 1024
+  train_size: 1
+
+  beta: 0.001
+
+  r2d2_scale:
+  r2d2_type: cond
+  prior_z_shape: 0.6
+  prior_w_shape: 0.5
+  beta_rho_scale: [-5, 0.2]
+  bias_rho_scale: [-5, 0.2]
+
+  weight_xi_shape: 0.3
+  weight_omega_shape: 0.5
+
+  in_channels: 3
+  out_channels: 10
+
+  loss: "ELBO"
+
+#### Logging
+logging:
+  mode: online
+  tags: [
+      "CIFAR10",
+      "AlexNet",
+      "R2D2",
+      "Cond",
+    ]

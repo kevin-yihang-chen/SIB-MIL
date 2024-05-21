@@ -1,0 +1,9 @@
+/data/
+./train_image/
+./test_image/
+/checkpoints/alexnet-owt-7be5be79.pth
+./manuscript
+./checkpoints
+./results
+./archive
+./references
