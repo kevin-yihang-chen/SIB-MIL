@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="" />
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/layers/horseshoeConv.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/layers/horseshoeConv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/Base.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/Base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/abmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/abmil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/dsmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/dsmil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_remix.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,6 +29,21 @@
       </map>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;kevin-yihang-chen&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kevin-yihang-chen/UAMIL.git&quot;,
+    &quot;accountId&quot;: &quot;756d8d6c-6807-4f7f-8c59-3724c62be856&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/BNN/layers/horseshoe.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/BNN/layers/horseshoeConv.py" root0="FORCE_HIGHLIGHTING" />
@@ -29,15 +52,20 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2giGINGqjJJEEjSTaZfTtSapjkW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.main.executor": "Run",
     "Python.train_remix.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Research/UAMIL",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,7 +76,7 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="train_remix" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -62,8 +90,8 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_remix.py" />
-      <option name="PARAMETERS" value="--model abmil --dataset COAD --task binary --feats_size 1024 --exp_name try" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="--model dsmil --dataset COAD --task binary --feats_size 1024" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -73,7 +101,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train_remix" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -94,7 +122,8 @@
       <option name="presentableId" value="Default" />
       <updated>1716172906810</updated>
       <workItem from="1716172908188" duration="14917000" />
-      <workItem from="1716254207631" duration="10715000" />
+      <workItem from="1716254207631" duration="14280000" />
+      <workItem from="1716341081219" duration="2924000" />
     </task>
     <servers />
   </component>
@@ -105,19 +134,15 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/BNN/models/abmil.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/BNN/models/abmil.py</url>
-          <line>65</line>
-          <option name="timeStamp" value="5" />
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>173</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="train_remix Coverage Results" MODIFIED="1716270009649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="main Coverage Results" MODIFIED="1716273564524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1716344501673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

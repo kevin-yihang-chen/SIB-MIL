@@ -150,7 +150,7 @@ def mix_the_bag_aug(bag_feats, idx, train_feats, train_labels, args, semantic_sh
     return bag_feats
 
 
-def train(train_feats, train_labels, milnet, criterion, optimizer, args, semantic_shifts=None):
+def train(train_feats, train_labels, milnet, criterion, optimizer, args, n_train, weight_kl, semantic_shifts=None):
     milnet.train()
     total_loss = 0
     for i in range(len(train_feats)):
@@ -162,17 +162,17 @@ def train(train_feats, train_labels, milnet, criterion, optimizer, args, semanti
         bag_feats = mix_the_bag_aug(bag_feats, i, train_feats, train_labels, args, semantic_shifts)
         if args.model == 'dsmil':
             # refer to dsmil code
-            ins_prediction, bag_prediction, _, _ = milnet(bag_feats,Train_flag=True)
+            ins_prediction, bag_prediction, _, _ = milnet(bag_feats,Train_flag=True,train_sample=n_train)
             max_prediction, _ = torch.max(ins_prediction, 0)
             bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
             max_loss = criterion(max_prediction.view(1, -1), bag_label.view(1, -1))
             loss = 0.5 * bag_loss + 0.5 * max_loss
             loss = loss + milnet.kl_loss()*0.0001
         elif args.model == 'abmil':
-            bag_prediction = milnet(bag_feats,Train_flag=True)
+            bag_prediction = milnet(bag_feats,Train_flag=True,train_sample=n_train)
             bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
             loss = bag_loss
-            loss = loss + milnet.kl_loss()*0.0001
+            loss = loss + milnet.kl_loss()*weight_kl
         else:
             raise NotImplementedError
         loss.backward()
@@ -184,7 +184,7 @@ def train(train_feats, train_labels, milnet, criterion, optimizer, args, semanti
     return total_loss / len(train_feats)
 
 
-def test(test_feats, test_gts, milnet, criterion, args):
+def test(test_feats, test_gts, milnet, criterion, args, n_test):
     milnet.eval()
     total_loss = 0
     test_labels = []
@@ -194,7 +194,7 @@ def test(test_feats, test_gts, milnet, criterion, args):
             bag_label, bag_feats = get_bag_feats_v2(test_feats[i], test_gts[i], args)
             bag_feats = bag_feats.view(-1, args.feats_size)
             if args.model == 'dsmil':
-                ins_prediction, bag_prediction, _, _ = milnet(bag_feats,Train_flag=False)
+                ins_prediction, bag_prediction, _, _ = milnet(bag_feats,Train_flag=False,test_sample=n_test)
 
                 # pred = torch.sigmoid(ins_prediction.view(-1)).cpu().numpy()
                 # slide_name = test_feats[i].split(',')[0].split('/')[-1].split('.')[0]
@@ -218,7 +218,7 @@ def test(test_feats, test_gts, milnet, criterion, args):
                 max_loss = criterion(max_prediction.view(1, -1), bag_label.view(1, -1))
                 loss = 0.5 * bag_loss + 0.5 * max_loss
             elif args.model == 'abmil':
-                bag_prediction = milnet(bag_feats,Train_flag=False)
+                bag_prediction = milnet(bag_feats,Train_flag=False,test_sample=n_test)
                 bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
                 loss = bag_loss
             else:
@@ -300,7 +300,6 @@ def main():
     parser.add_argument('--rate', default=0.5, type=float, help='Augmentation rate')
     
     # Utils
-    parser.add_argument('--exp_name', required=True, help='exp_name')
     parser.add_argument('--data_root', required=False, default='datasets', type=str, help='path to data root')
     parser.add_argument('--num_rep', default=1, type=int, help='Number of repeats')
     args = parser.parse_args()
@@ -334,98 +333,105 @@ def main():
     # use first_time to avoid duplicated logs
     first_time = True
     # test_generalizability(args)
-    config = {"lr": args.lr, "rep": 0, "n_sample_train":1, "n_sample_test":1}
+    n_sample_test = [1,5,10]
+    n_sample_train = [1,5,10]
+    weight_kl = [1e-7,1e-6,1e-5,1e-4]
+
     for t in range(args.num_rep):
-        # ckpt_pth = setup_logger(args, first_time)
-        ckpt_pth = f'/home/yhchen/Documents/HDPMIL/datasets/{args.dataset}/ckpt.pth'
-        logging.info(f'current args: {args}')
-        logging.info(f'augmentation mode: {args.mode}')
+        for n_train in n_sample_train:
+            for n_test in n_sample_test:
+                for kl in weight_kl:
+                    config = {"lr": args.lr, "rep": t, "n_sample_train":n_train, "n_sample_test":n_test, "kl_weight":kl}
+                    # ckpt_pth = setup_logger(args, first_time)
+                    # ckpt_pth = f'/home/yhchen/Documents/HDPMIL/datasets/{args.dataset}/ckpt.pth'
+                    logging.info(f'current args: {args}')
+                    logging.info(f'augmentation mode: {args.mode}')
 
-        # milnet = DP_Cluster(concentration=0.1,trunc=2,eta=1,batch_size=1,epoch=20, dim=512).cuda()
-        prior = {'horseshoe_scale':None, 'global_cauchy_scale':1., 'weight_cauchy_scale':1., 'beta_rho_scale':-5.,
-                 'log_tau_mean':None, 'log_tau_rho_scale':-5., 'bias_rho_scale':-5., 'log_v_mean':None, 'log_v_rho_scale':-5.}
-        # prepare model
-        if args.model == 'abmil':
-            # milnet = abmil.BClassifier(args.feats_size, args.num_classes).cuda()
-            # milnet = BClassifier(args.feats_size, args.num_classes).cuda()
-            milnet = ABMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior, activation_type='relu').cuda()
-        elif args.model == 'dsmil':
-            # i_classifier = dsmil.FCLayer(in_size=args.feats_size, out_size=args.num_classes).cuda()
-            # b_classifier = dsmil.BClassifier(input_size=args.feats_size, output_class=args.num_classes, dropout_v=0).cuda()
-            # milnet = dsmil.MILNet(i_classifier, b_classifier).cuda()
-            milnet = DSMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior, activation_type='relu').cuda()
+                    # milnet = DP_Cluster(concentration=0.1,trunc=2,eta=1,batch_size=1,epoch=20, dim=512).cuda()
+                    prior = {'horseshoe_scale':None, 'global_cauchy_scale':1., 'weight_cauchy_scale':1., 'beta_rho_scale':-5.,
+                             'log_tau_mean':None, 'log_tau_rho_scale':-5., 'bias_rho_scale':-5., 'log_v_mean':None, 'log_v_rho_scale':-5.}
+                    # prepare model
+                    if args.model == 'abmil':
+                        # milnet = abmil.BClassifier(args.feats_size, args.num_classes).cuda()
+                        # milnet = BClassifier(args.feats_size, args.num_classes).cuda()
+                        milnet = ABMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior, activation_type='relu').cuda()
+                    elif args.model == 'dsmil':
+                        # i_classifier = dsmil.FCLayer(in_size=args.feats_size, out_size=args.num_classes).cuda()
+                        # b_classifier = dsmil.BClassifier(input_size=args.feats_size, output_class=args.num_classes, dropout_v=0).cuda()
+                        # milnet = dsmil.MILNet(i_classifier, b_classifier).cuda()
+                        milnet = DSMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior, activation_type='relu').cuda()
 
-        if args.num_classes==1:
-            criterion = nn.BCEWithLogitsLoss()
-        else:
-            criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(milnet.parameters(), lr=args.lr, betas=(0.5, 0.9), weight_decay=args.weight_decay)
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.num_epochs, 0.000005)
+                    if args.num_classes==1:
+                        criterion = nn.BCEWithLogitsLoss()
+                    else:
+                        criterion = nn.CrossEntropyLoss()
+                    optimizer = torch.optim.Adam(milnet.parameters(), lr=args.lr, betas=(0.5, 0.9), weight_decay=args.weight_decay)
+                    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, args.num_epochs, 0.000005)
 
-        if args.num_prototypes is not None:
-            # load reduced-bag
-            train_feats_pth = f'{args.data_root}/{args.dataset}/remix_processed/train_bag_feats_proto_{args.num_prototypes}_v2.npy'
-            logging.info(f'loading train_feats from {train_feats_pth}')
-            # loading features
-            train_feats = np.load(train_feats_pth, allow_pickle=True)
-            train_feats = torch.Tensor(train_feats).cuda()
+                    if args.num_prototypes is not None:
+                        # load reduced-bag
+                        train_feats_pth = f'{args.data_root}/{args.dataset}/remix_processed/train_bag_feats_proto_{args.num_prototypes}_v2.npy'
+                        logging.info(f'loading train_feats from {train_feats_pth}')
+                        # loading features
+                        train_feats = np.load(train_feats_pth, allow_pickle=True)
+                        train_feats = torch.Tensor(train_feats).cuda()
 
-            if args.mode == 'cov' or args.mode == 'joint':
-                # loading semantic shift vectors
-                train_shift_bank_pth = f'{args.data_root}/{args.dataset}/remix_processed/train_bag_feats_shift_{args.num_prototypes}.npy'
-                semantic_shifts = np.load(f'{train_shift_bank_pth}')
-            else:
-                semantic_shifts = None
-            # semantic_shifts = None
-        else:
-            # when train_feats is None, loading them directly from the dataset npy folder.
-            # train_feats = open(f'{args.data_root}/{args.dataset}16/remix_processed/train_list.txt', 'r').readlines()
-            train_feats = open(f'{args.data_root}/{args.dataset}/{args.task}_{args.dataset}_train.txt', 'r').readlines()
-            # train_feats = open(f'{args.data_root}/COAD/binary_COAD_train.txt','r').readlines()
-            train_feats = np.array(train_feats)
-            # train_feats = train_feats[:5]
+                        if args.mode == 'cov' or args.mode == 'joint':
+                            # loading semantic shift vectors
+                            train_shift_bank_pth = f'{args.data_root}/{args.dataset}/remix_processed/train_bag_feats_shift_{args.num_prototypes}.npy'
+                            semantic_shifts = np.load(f'{train_shift_bank_pth}')
+                        else:
+                            semantic_shifts = None
+                        # semantic_shifts = None
+                    else:
+                        # when train_feats is None, loading them directly from the dataset npy folder.
+                        # train_feats = open(f'{args.data_root}/{args.dataset}16/remix_processed/train_list.txt', 'r').readlines()
+                        train_feats = open(f'{args.data_root}/{args.dataset}/{args.task}_{args.dataset}_train.txt', 'r').readlines()
+                        # train_feats = open(f'{args.data_root}/COAD/binary_COAD_train.txt','r').readlines()
+                        train_feats = np.array(train_feats)
+                        # train_feats = train_feats[:5]
 
-            # train_feats = open(f'/home/r20user8/Documents/HDPMIL/datasets/Camelyon/binary_Camelyon_train.txt', 'r').readlines()
-            # train_feats = np.array(train_feats)
-            semantic_shifts = None
-            
-        # loading labels
-        train_labels, test_labels = np.load(train_labels_pth), np.load(test_labels_pth)
-        # train_labels, test_labels = train_labels[:5], test_labels[:5]
-        train_labels, test_labels = torch.Tensor(train_labels).cuda(), torch.Tensor(test_labels).cuda()
+                        # train_feats = open(f'/home/r20user8/Documents/HDPMIL/datasets/Camelyon/binary_Camelyon_train.txt', 'r').readlines()
+                        # train_feats = np.array(train_feats)
+                        semantic_shifts = None
+
+                    # loading labels
+                    train_labels, test_labels = np.load(train_labels_pth), np.load(test_labels_pth)
+                    # train_labels, test_labels = train_labels[:5], test_labels[:5]
+                    train_labels, test_labels = torch.Tensor(train_labels).cuda(), torch.Tensor(test_labels).cuda()
 
 
-        config["rep"]=t
-        wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
-                   project='UAMIL',
-                   entity='yihangc',
-                   notes='',
-                   mode='online',  # disabled/online/offline
-                   config=config,
-                   tags=[])
-        best_acc = 0
-        for epoch in range(1, args.num_epochs + 1):
-            # shuffle data
+                    # config["rep"]=t
+                    # wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
+                    #            project='UAMIL',
+                    #            entity='yihangc',
+                    #            notes='',
+                    #            mode='online',  # disabled/online/offline
+                    #            config=config,
+                    #            tags=[])
+                    best_acc = 0
+                    for epoch in range(1, args.num_epochs + 1):
+                        # shuffle data
 
-            shuffled_train_idxs = np.random.permutation(len(train_labels))
-            train_feats, train_labels = train_feats[shuffled_train_idxs], train_labels[shuffled_train_idxs]
-            train_loss_bag = train(train_feats, train_labels, milnet, criterion, optimizer, args, semantic_shifts)
-            if args.num_classes == 1:
-                precision, recall, accuracy, f1, avg, auc = test(test_feats, test_labels, milnet, criterion, args)
-                print(f'pre:{precision},recall:{recall},acc:{accuracy},f1:{f1},auc:{auc}.')
-                wandb.log({'train_loss': train_loss_bag, 'precision': precision, 'recall': recall, 'accuracy': accuracy, 'f1':f1,
-                           'avg': avg, 'auc': auc})
-            else:
-                accuracy, f1, auc = test(test_feats, test_labels, milnet, criterion, args)
-                print(f'acc:{accuracy},f1:{f1},auc:{auc}.')
-                wandb.log({'train_loss': train_loss_bag, 'accuracy': accuracy, 'f1': f1, 'auc': auc})
-            logging.info('Epoch [%d/%d] train loss: %.4f' % (epoch, args.num_epochs, train_loss_bag))
-            scheduler.step()
-            # if accuracy >= best_acc:
-            #     print('saving model...')
-            #     best_acc = accuracy
-            #     torch.save(milnet.state_dict(), ckpt_pth)
-        wandb.finish()
+                        shuffled_train_idxs = np.random.permutation(len(train_labels))
+                        train_feats, train_labels = train_feats[shuffled_train_idxs], train_labels[shuffled_train_idxs]
+                        train_loss_bag = train(train_feats, train_labels, milnet, criterion, optimizer, args, n_train, kl, semantic_shifts)
+                        if args.num_classes == 1:
+                            precision, recall, accuracy, f1, avg, auc = test(test_feats, test_labels, milnet, criterion, args, n_test)
+                            print(f'pre:{precision},recall:{recall},acc:{accuracy},f1:{f1},auc:{auc}.')
+                            wandb.log({'train_loss': train_loss_bag, 'precision': precision, 'recall': recall, 'accuracy': accuracy, 'f1':f1,
+                                       'avg': avg, 'auc': auc})
+                        else:
+                            accuracy, f1, auc = test(test_feats, test_labels, milnet, criterion, args, n_test)
+                            print(f'acc:{accuracy},f1:{f1},auc:{auc}.')
+                            wandb.log({'train_loss': train_loss_bag, 'accuracy': accuracy, 'f1': f1, 'auc': auc})
+                        logging.info('Epoch [%d/%d] train loss: %.4f' % (epoch, args.num_epochs, train_loss_bag))
+                        scheduler.step()
+                        # if accuracy >= best_acc:
+                        #     print('saving model...')
+                        #     best_acc = accuracy
+                        #     torch.save(milnet.state_dict(), ckpt_pth)
+                    wandb.finish()
 
         # precision, recall, accuracy, f1, avg, auc = test(test_feats, test_labels, milnet, criterion, args)
         # torch.save(milnet.state_dict(), ckpt_pth)

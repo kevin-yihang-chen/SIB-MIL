@@ -48,7 +48,7 @@ class BaseModel(nn.Module):
         else:
             raise ValueError("This Layer type is not implemented")
 
-    def get_conv_layer(self, in_dim, out_dim, kernel, stride=1, padding=0, coonv_type="conv2d"):
+    def get_conv_layer(self, in_dim, out_dim, kernel, stride=1, padding=0, conv_type="conv2d"):
         if self.layer_type == "R2D2M":
             return R2D2ConvLayer(in_dim, out_dim, self.priors, kernel, stride=stride, padding=padding)
         elif self.layer_type == "Gauss":
@@ -62,7 +62,7 @@ class BaseModel(nn.Module):
         elif self.layer_type == "Freq":
             return nn.Conv2d(in_dim, out_dim, kernel, stride=stride, padding=padding)
         elif self.layer_type == "HS":
-            return HorseshoeConvLayer(in_dim, out_dim, self.priors, kernel, stride=stride, padding=padding, conv_type=coonv_type)
+            return HorseshoeConvLayer(in_dim, out_dim, self.priors, kernel, stride=stride, padding=padding, conv_type=conv_type)
         else:
             raise ValueError("This Conv layer type is not implemented")
 

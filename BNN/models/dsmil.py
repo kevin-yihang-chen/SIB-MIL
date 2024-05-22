@@ -73,26 +73,46 @@ class DSMIL(BaseModel):
         super(DSMIL, self).__init__(layer_type, priors, activation_type)
         self.i_classifier = self.get_fc_layer(input_size, num_classes)
         self.q = self.get_fc_layer(input_size, 128)
-        self.v = nn.Sequential(
-            nn.Dropout(dropout_v),
-            self.get_fc_layer(input_size, input_size)
-        )
-        self.fcc = self.get_conv_layer(num_classes, num_classes, kernel=input_size, coonv_type="conv1d")
+        self.drop_out = nn.Dropout(dropout_v)
+        self.v = self.get_fc_layer(input_size, input_size)
+        self.fcc = self.get_conv_layer(num_classes, num_classes, kernel=input_size, conv_type="conv1d")
 
-    def forward(self, x):
-        classes = self.i_classifier(x)
+    def kl_loss(self):
+        modules = [m for (name, m) in self.named_modules() if m != self and hasattr(m, 'kl_loss')]
+        kl = [m.kl_loss() for m in modules]
+        kl = [float(k) for k in kl]
+        kl = torch.Tensor(kl)
+        kl = torch.nan_to_num(kl, neginf=0)
+        kl = torch.nanmean(torch.Tensor(kl))
+
+        return kl
+
+    def analytic_update(self):
+        modules = [m for (name, m) in self.named_modules() if m != self and hasattr(m, 'analytic_update')]
+        for m in modules:
+            m.analytic_update()
+
+    def forward(self, x, Train_flag=True, train_sample=1 ,test_sample=1):
+        classes = self.i_classifier(x,n_samples=train_sample if Train_flag else test_sample)
+        classes = torch.mean(classes, dim=0)
         device = x.device
-        V = self.v(x)
-        Q = self.q(x).view(x.shape[0], -1)
+        classes = self.drop_out(classes)
+        V = self.v(x, n_samples=train_sample if Train_flag else test_sample)
+        V = torch.mean(V, dim=0)
+        Q = self.q(x, n_samples=train_sample if Train_flag else test_sample)
+        Q = torch.mean(Q, dim=0)
+        Q = Q.view(x.shape[0], -1)
         _, m_indices = torch.sort(classes, 0, descending=True)
         m_feats = torch.index_select(x, dim=0, index=m_indices[0, :])
-        q_max = self.q(m_feats)
+        q_max = self.q(m_feats, n_samples=train_sample if Train_flag else test_sample)
+        q_max = torch.mean(q_max, dim=0)
         A = torch.mm(Q, q_max.transpose(0, 1))
         A = F.softmax(A / torch.sqrt(torch.tensor(Q.shape[1], dtype=torch.float32, device=device)), 0)
         B = torch.mm(A.transpose(0, 1), V)
 
         B = B.view(1, B.shape[0], B.shape[1])
-        C = self.fcc(B)
+        C = self.fcc(B, n_samples=train_sample if Train_flag else test_sample)
+        C = torch.mean(C, dim=0)
         C = C.view(1, -1)
         return classes, C, A, B
 

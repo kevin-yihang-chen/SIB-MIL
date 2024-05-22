@@ -14,7 +14,7 @@ class HorseshoeConvLayer(nn.Module):
     Single linear layer of a horseshoe prior for regression
     """
     def __init__(self, in_features, out_features, priors, kernel_size,
-                 stride=1, padding=0, dilation=(1,1)):
+                 stride=1, padding=0, dilation=(1,1), conv_type="conv2d"):
         """
         Args:
             in_features: int, number of input features
@@ -24,12 +24,19 @@ class HorseshoeConvLayer(nn.Module):
         super().__init__()
         self.in_features = in_features
         self.out_features = out_features
+        self.conv_type = conv_type
 
         # CNN features
-        self.kernel_size = kernel_size if isinstance(kernel_size, tuple) else (kernel_size, kernel_size)
+        if conv_type == "conv2d":
+            self.kernel_size = kernel_size if isinstance(kernel_size, tuple) else (kernel_size, kernel_size)
+        elif conv_type == "conv1d":
+            self.kernel_size = (kernel_size,)
         self.stride = stride
         self.padding = padding
-        self.dilation = dilation
+        if conv_type == "conv2d":
+            self.dilation = dilation
+        elif conv_type == "conv1d":
+            self.dilation = (1,)
         self.groups = 1
 
         # Scale to initialize weights, according to Yingzhen's work
@@ -244,7 +251,10 @@ class HorseshoeConvLayer(nn.Module):
         weight = weight.cuda()
         bias = bias.cuda()
 
-        return F.conv2d(input_, weight, bias, self.stride, self.padding, self.dilation, self.groups)
+        if self.conv_type == "conv2d":
+            return F.conv2d(input_, weight, bias, self.stride, self.padding, self.dilation, self.groups)
+        elif self.conv_type == "conv1d":
+            return F.conv1d(input_, weight, bias, self.stride, self.padding, self.dilation, self.groups)
 
     def analytic_update(self):
         """

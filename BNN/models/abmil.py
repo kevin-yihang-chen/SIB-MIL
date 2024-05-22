@@ -62,12 +62,12 @@ class ABMIL(BaseModel):
         for m in modules:
             m.analytic_update()
 
-    def forward(self, x, Train_flag=True):
+    def forward(self, x, Train_flag=True, train_sample=1 ,test_sample=1):
         H = x
-        A = self.fc_1(H,n_samples=1 if Train_flag else 1)
+        A = self.fc_1(H,n_samples=train_sample if Train_flag else test_sample)
         A = torch.mean(A, dim=0)
         A = self.act(A)
-        A = self.fc_2(A,n_samples=1 if Train_flag else 1)
+        A = self.fc_2(A,n_samples=train_sample if Train_flag else test_sample)
         A = torch.mean(A, dim=0)
         A = torch.transpose(A, 1, 0)
         A = F.softmax(A, dim=1)
