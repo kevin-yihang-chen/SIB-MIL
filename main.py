@@ -32,7 +32,7 @@ def get_bag_feats_v2(feats, bag_label, args):
     if isinstance(feats, str):
         # if feats is a path, load it
         feats = feats.split(',')[0].split('\n')[0]+'/features.pt'
-        feats = os.path.join('/data1/WSI/Patches/Features/BRACS_WSI/BRACS_WSI_Kimia_20x', feats)
+        # feats = os.path.join('/data1/WSI/Patches/Features/BRACS_WSI/BRACS_WSI_Kimia_20x', feats)
         # feats = torch.Tensor(np.load(feats.split(',')[0])).cuda()
         feats = torch.load(feats).cuda()
     feats = feats[np.random.permutation(len(feats))]
@@ -402,13 +402,13 @@ def main():
 
 
                     config["rep"]=t
-                    wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
-                               project='UAMIL',
-                               entity='yihangc',
-                               notes='',
-                               mode='online',  # disabled/online/offline
-                               config=config,
-                               tags=[])
+                    # wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
+                    #            project='UAMIL',
+                    #            entity='yihangc',
+                    #            notes='',
+                    #            mode='online',  # disabled/online/offline
+                    #            config=config,
+                    #            tags=[])
                     best_acc = 0
                     for epoch in range(1, args.num_epochs + 1):
                         # shuffle data
