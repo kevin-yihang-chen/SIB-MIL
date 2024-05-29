@@ -333,9 +333,9 @@ def main():
     # use first_time to avoid duplicated logs
     first_time = True
     # test_generalizability(args)
-    n_sample_test = [1,5,10]
-    n_sample_train = [1,5,10]
-    weight_kl = [1e-7,1e-6,1e-5,1e-4]
+    n_sample_test = [1]
+    n_sample_train = [1]
+    weight_kl = [1e-6]
 
     for t in range(args.num_rep):
         for n_train in n_sample_train:
@@ -401,14 +401,14 @@ def main():
                     train_labels, test_labels = torch.Tensor(train_labels).cuda(), torch.Tensor(test_labels).cuda()
 
 
-                    # config["rep"]=t
-                    # wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
-                    #            project='UAMIL',
-                    #            entity='yihangc',
-                    #            notes='',
-                    #            mode='online',  # disabled/online/offline
-                    #            config=config,
-                    #            tags=[])
+                    config["rep"]=t
+                    wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
+                               project='UAMIL',
+                               entity='yihangc',
+                               notes='',
+                               mode='online',  # disabled/online/offline
+                               config=config,
+                               tags=[])
                     best_acc = 0
                     for epoch in range(1, args.num_epochs + 1):
                         # shuffle data

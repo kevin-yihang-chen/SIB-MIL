@@ -94,10 +94,11 @@ class DSMIL(BaseModel):
 
     def forward(self, x, Train_flag=True, train_sample=1 ,test_sample=1):
         classes = self.i_classifier(x,n_samples=train_sample if Train_flag else test_sample)
+        feats = x
         classes = torch.mean(classes, dim=0)
         device = x.device
-        classes = self.drop_out(classes)
-        V = self.v(x, n_samples=train_sample if Train_flag else test_sample)
+        V = self.drop_out(feats)
+        V = self.v(V, n_samples=train_sample if Train_flag else test_sample)
         V = torch.mean(V, dim=0)
         Q = self.q(x, n_samples=train_sample if Train_flag else test_sample)
         Q = torch.mean(Q, dim=0)
