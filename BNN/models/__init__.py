@@ -14,6 +14,7 @@ from .ViT import ViT
 from .abmil import ABMIL
 from .dsmil import DSMIL
 from .wrappers import DeepEnsemble
+from .TransMIL import TransMIL
 
 __all__ = [
     "CNN",

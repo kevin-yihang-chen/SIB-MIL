@@ -30,22 +30,22 @@ class BClassifier(nn.Module):
         return Y_prob
 
 class ABMIL(BaseModel):
-    def __init__(self,input_size, num_classes, layer_type='HS', priors=None, activation_type="relu"):
+    def __init__(self,input_size, num_classes,  layer_type='HS', priors=None, activation_type="relu"):
         super(ABMIL, self).__init__(layer_type, priors, activation_type)
         self.L = input_size
         self.D = input_size
         self.K = 1
         self.fc_1 = self.get_fc_layer(self.L, self.D)
         self.fc_2 = self.get_fc_layer(self.D, self.K)
+
         # self.attention = nn.Sequential(
         #     self.get_fc_layer(self.L, self.D),
         #     self.act,
         #     self.get_fc_layer(self.D, self.K)
         # )
 
-        self.classifier = nn.Sequential(
-            self.get_fc_layer(self.D, num_classes)
-        )
+        self.classifier = self.get_fc_layer(self.D, num_classes)
+
 
     def kl_loss(self):
         modules = [m for (name, m) in self.named_modules() if m != self and hasattr(m, 'kl_loss')]
@@ -72,7 +72,8 @@ class ABMIL(BaseModel):
         A = torch.transpose(A, 1, 0)
         A = F.softmax(A, dim=1)
         M = torch.mm(A, H)
-        Y_prob = self.classifier(M)
+        Y_prob = self.classifier(M,n_samples=train_sample if Train_flag else test_sample)
+        Y_prob = torch.mean(Y_prob, dim=0)
         return Y_prob
 
 

@@ -4,17 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme Added">
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="dsmil revised">
+      <change afterPath="$PROJECT_DIR$/2csv_file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BNN/models/DTFD/Attention.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BNN/models/DTFD/network.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Opt/lookahead.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Opt/radam.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/dsmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/dsmil.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/layers/horseshoe.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/layers/horseshoe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/abmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/abmil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
     <envs>
@@ -50,13 +65,16 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2giGINGqjJJEEjSTaZfTtSapjkW" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.train_remix.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -73,6 +91,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Research\UAMIL" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
@@ -81,6 +104,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUDA_VISIBLE_DEVICES" value="7" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -89,7 +113,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="--model dsmil --dataset COAD --task binary --feats_size 1024" />
+      <option name="PARAMETERS" value="--model dsmil --dataset Camelyon --task binary --feats_size 1024 --num_workers 4 --gpu 0 --wandb" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -106,8 +130,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
-        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17011.127" />
+        <option value="bundled-python-sdk-48aec45f0201-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17011.127" />
       </set>
     </attachedChunks>
   </component>
@@ -126,7 +150,19 @@
       <workItem from="1716541847668" duration="1512000" />
       <workItem from="1716886868726" duration="1709000" />
       <workItem from="1716894121458" duration="1962000" />
-      <workItem from="1716945087033" duration="6323000" />
+      <workItem from="1716945087033" duration="12829000" />
+      <workItem from="1716992994292" duration="1771000" />
+      <workItem from="1717029107740" duration="10866000" />
+      <workItem from="1717067743951" duration="2465000" />
+      <workItem from="1717079692993" duration="508000" />
+      <workItem from="1717080383495" duration="1231000" />
+      <workItem from="1717116977813" duration="982000" />
+      <workItem from="1717216202405" duration="7281000" />
+      <workItem from="1717379332080" duration="1718000" />
+      <workItem from="1717461565640" duration="9043000" />
+      <workItem from="1717513499203" duration="36000" />
+      <workItem from="1717547235939" duration="19211000" />
+      <workItem from="1717634601166" duration="5208000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -152,30 +188,29 @@
       <option name="project" value="LOCAL" />
       <updated>1716945450832</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="dsmil revised">
+      <option name="closed" value="true" />
+      <created>1716952935835</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716952935835</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="ABMIL &amp; DSMIL BNN version done" />
     <MESSAGE value="Readme Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Readme Added" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>173</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="dsmil revised" />
+    <option name="LAST_COMMIT_MESSAGE" value="dsmil revised" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="main Coverage Results" MODIFIED="1716273564524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1716952882150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1717572194793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
