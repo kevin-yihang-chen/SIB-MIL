@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from ..Base import BaseModel
 class Attention2(nn.Module):
     def __init__(self, L=512, D=128, K=1):
         super(Attention2, self).__init__()
@@ -77,20 +78,50 @@ class Classifier_1fc(nn.Module):
 
         return pred, x, None
 
-class Attention_with_Classifier(nn.Module):
-    def __init__(self, args, L=512, D=128, K=1, num_cls=2, droprate=0):
-        super(Attention_with_Classifier, self).__init__()
+# class Attention_with_Classifier(nn.Module):
+#     def __init__(self, L=512, D=128, K=1, n_classes=2, droprate=0):
+#         super(Attention_with_Classifier, self).__init__()
+#
+#         self.attention = Attention_Gated(L, D, K)
+#         self.classifier = Classifier_1fc(L, n_classes, droprate)
+#
+#     def forward(self, x): ## x: N x L
+#         AA = self.attention(x)  ## K x N
+#         M = torch.mm(AA, x) ## K x L
+#         pred, _, _ = self.classifier(M) ## K x num_cls
+#         return pred, M, AA
+
+
+        # return Y_prob, M, A
+
+class Attention_with_Classifier(BaseModel):
+    def __init__(self, L, n_classes,  layer_type='HS', priors=None, activation_type="relu",  D=128, K=1, droprate=0):
+        super(Attention_with_Classifier, self).__init__(layer_type=layer_type, priors=priors, activation_type=activation_type)
 
         self.attention = Attention_Gated(L, D, K)
-        self.classifier = Classifier_1fc(L, num_cls, droprate)
+        self.classifier = self.get_fc_layer(L, n_classes)
+        # self.classifier = Classifier_1fc(input_size, n_classes, droprate)
 
     def forward(self, x): ## x: N x L
         AA = self.attention(x)  ## K x N
         M = torch.mm(AA, x) ## K x L
-        pred, _, _ = self.classifier(M) ## K x num_cls
+        pred = self.classifier(M) ## K x num_cls
+        pred = torch.mean(pred, dim=0)
         return pred, M, AA
 
+    def kl_loss(self):
+        modules = [m for (name, m) in self.named_modules() if m != self and hasattr(m, 'kl_loss')]
+        kl = [m.kl_loss() for m in modules]
+        kl = [float(k) for k in kl]
+        kl = torch.Tensor(kl)
+        kl = torch.nan_to_num(kl, neginf=0)
+        kl = torch.nanmean(torch.Tensor(kl))
 
-        # return Y_prob, M, A
+        return kl
+
+    def analytic_update(self):
+        modules = [m for (name, m) in self.named_modules() if m != self and hasattr(m, 'analytic_update')]
+        for m in modules:
+            m.analytic_update()
 
             

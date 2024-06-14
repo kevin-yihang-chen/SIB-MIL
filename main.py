@@ -14,7 +14,7 @@ import os
 # os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 import torch
 import torch.nn as nn
-from sklearn.metrics import (roc_auc_score, roc_curve)
+from sklearn.metrics import (roc_auc_score, roc_curve,accuracy_score,classification_report,confusion_matrix)
 from BNN.models import ABMIL, DSMIL, TransMIL
 
 # from model import abmil, dsmil
@@ -26,10 +26,12 @@ from dataset import BagDataset
 from torch.utils.data import DataLoader
 from Opt.lookahead import Lookahead
 from Opt.radam import RAdam
-from BNN.models.DTFD.network import DimReduction
+from BNN.models.DTFD.network import DimReduction, get_cam_1d
 from BNN.models.DTFD.Attention import Attention_Gated as Attention
 from BNN.models.DTFD.Attention import Attention_with_Classifier, Classifier_1fc
-
+import random
+import time
+import copy
 warnings.simplefilter('ignore')
 
 
@@ -173,6 +175,31 @@ def multi_label_roc(labels, predictions, num_classes):
         thresholds_optimal.append(threshold_optimal)
     return aucs, thresholds, thresholds_optimal
 
+def multi_label_roc_DTFD(labels, predictions, num_classes, pos_label=1):
+    fprs = []
+    tprs = []
+    thresholds = []
+    thresholds_optimal = []
+    aucs = []
+    if len(predictions.shape)==1:
+        predictions = predictions[:, None]
+    for c in range(0, num_classes):
+        label = labels[:, c]
+        if sum(label)==0:
+            continue
+        prediction = predictions[:, c]
+        # print(label, prediction,label.shape, prediction.shape, labels.shape, predictions.shape)
+        # dummy = []
+        # for ii in range(len(prediction)):
+        #     dummy.append(prediction[ii].tolist())
+        # prediction = np.array(dummy)
+        fpr, tpr, threshold = roc_curve(label, prediction, pos_label=1)
+        fpr_optimal, tpr_optimal, threshold_optimal = optimal_thresh(fpr, tpr, threshold)
+        c_auc = roc_auc_score(label, prediction)
+        aucs.append(c_auc)
+        thresholds.append(threshold)
+        thresholds_optimal.append(threshold_optimal)
+    return aucs, thresholds, thresholds_optimal
 
 def optimal_thresh(fpr, tpr, thresholds, p=0):
     loss = (fpr - tpr) - p * tpr / (fpr + tpr + 1)
@@ -191,7 +218,7 @@ def main():
                         choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], help='Dataset folder name')
     parser.add_argument('--task', default='binary', choices=['binary', 'staging'], type=str, help='Downstream Task')
     parser.add_argument('--model', default='dsmil', type=str,
-                        choices=['dsmil', 'abmil', 'transmil'], help='MIL model')
+                        choices=['dsmil', 'abmil', 'transmil', 'DTFD'], help='MIL model')
     # ReMix Parameters
     parser.add_argument('--num_prototypes', default=None, type=int, help='Number of prototypes per bag')
     parser.add_argument('--mode', default=None, type=str,
@@ -205,6 +232,8 @@ def main():
     parser.add_argument('--num_workers', default=1, type=int, help='number rof workers')
     parser.add_argument('--wandb', action='store_true', help='Use wandb for logging')
     parser.add_argument('--distill', default='MaxMinS', type=str, help='Distillation method')
+    parser.add_argument('--weight_path', default=None, type=str, help='Path to pretrained weights')
+    parser.add_argument('--extractor', default='Resnet', type=str, help='Feature extractor')
     args = parser.parse_args()
 
     assert args.dataset in ['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], 'Dataset not supported'
@@ -253,8 +282,11 @@ def main():
                         DTFDclassifier = Classifier_1fc(mDim, args.num_classes, 0.0).cuda()
                         DTFDattention = Attention(mDim).cuda()
                         DTFDdimReduction = DimReduction(args.feats_size, mDim, numLayer_Res=0).cuda()
-                        DTFDattCls = Attention_with_Classifier(args, L=mDim, num_cls=args.num_classes, \
-                                                               droprate=0.0).cuda()
+                        DTFDattCls = Attention_with_Classifier( L=mDim, n_classes=args.num_classes, \
+                                                               droprate=0.0,layer_type='HS', priors=prior,
+                                          activation_type='relu').cuda()
+                        # DTFDattCls = Attention_with_Classifier(L=mDim, n_classes=args.num_classes, \
+                        #                                        droprate=0.0).cuda()
                         milnet = [DTFDclassifier, DTFDattention, DTFDdimReduction, DTFDattCls]
                     else:
                         raise NotImplementedError
@@ -312,7 +344,7 @@ def main():
 
                     config["rep"] = t
                     if args.wandb:
-                        wandb.init(name=f'{args.task}_{args.dataset}_{args.model}',
+                        wandb.init(name=f'{args.task}_{args.dataset}_{args.model}_{args.extractor}',
                                    project='UAMIL',
                                    entity='yihangc',
                                    notes='',
@@ -322,9 +354,10 @@ def main():
                     best_acc = 0
                     for epoch in range(1, args.num_epochs + 1):
                         if args.model == 'DTFD':
+                            start_time = time.time()
                             train_loss_bag = trainDTFD(args, train_loader, DTFDclassifier, \
                                                        DTFDdimReduction, DTFDattention, DTFDattCls, optimizer_adam0,
-                                                       optimizer_adam1, epoch, criterion)
+                                                       optimizer_adam1, epoch, criterion,kl_weight=kl)
                             print('epoch time:{}'.format(time.time() - start_time))
                             # test_loss_bag, avg_score, aucs, thresholds_optimal = test(test_loader, milnet, criterion, optimizer, args, log_path, epoch)
                             test_loss_bag, avg_score, aucs, thresholds_optimal = \
@@ -362,7 +395,7 @@ def main():
                             #     print('Best thresholds ===>>> ' + '|'.join(
                             #         'class-{}>>{}'.format(*k) for k in enumerate(thresholds_optimal)))
                         else:
-                            train_loss_bag = train(train_loader, milnet, criterion, optimizer, args, n_train, kl)
+                            train_loss_bag = train(train_loader, milnet, criterion, optimizer, args, n_train, weight_kl=kl)
                             if args.num_classes == 1:
                                 precision, recall, accuracy, f1, avg, auc = test(test_loader, milnet, criterion, args,
                                                                                  n_test)
@@ -395,7 +428,7 @@ def main():
 
 
 def trainDTFD(args, train_df, classifier, dimReduction, attention, UClassifier, optimizer0, optimizer1, epoch, \
-              criterion=None, numGroup=4, total_instance=4):
+              criterion=None, numGroup=4, total_instance=4, kl_weight=1e-6):
     distill = args.distill
     # SlideNames_list, mFeat_list, Label_dict = mDATA_list
     total_loss = 0
@@ -483,17 +516,18 @@ def trainDTFD(args, train_df, classifier, dimReduction, attention, UClassifier, 
         ## optimization for the second tier
         gSlidePred, bg_feat, Att_s1 = UClassifier(slide_pseudo_feat.detach())
         # gSlidePred = UClassifier(slide_pseudo_feat)
-        loss1 = criterion(gSlidePred, tslideLabel).mean()
+        loss1 = criterion(gSlidePred, tslideLabel).mean() + kl_weight * UClassifier.kl_loss()
+        # loss1 = criterion(gSlidePred, tslideLabel).mean()
         optimizer1.zero_grad()
         loss1.backward()
+        UClassifier.analytic_update()
         torch.nn.utils.clip_grad_norm_(UClassifier.parameters(), grad_clipping)
         optimizer1.step()
         total_loss = total_loss + loss0.item() + loss1.item()
 
 
-        sys.stdout.write('\r Training bag [{:}/{:}] bag loss: {:.4f}, attention max:{:.5f}, min:{:.5f}, mean:{:.5f}'. \
-                         format(i, len(train_df), loss0.item() + loss1.item(), UAtt.max().item(), UAtt.min().item(),
-                                UAtt.mean().item()))
+        sys.stdout.write('\r Training bag [{:}/{:}] bag loss: {:.4f}'. \
+                         format(i, len(train_df), loss0.item() + loss1.item()))
 
     return total_loss / len(train_df)
 
@@ -606,7 +640,7 @@ def testDTFD(args, test_df, classifier, dimReduction, attention, UClassifier, \
     test_labels = np.array(test_labels)
     test_predictions = np.array(test_predictions)
 
-    auc_value, _, thresholds_optimal = multi_label_roc(test_labels, test_predictions, args.num_classes, pos_label=1)
+    auc_value, _, thresholds_optimal = multi_label_roc_DTFD(test_labels, test_predictions, args.num_classes, pos_label=1)
     test_predictions_ = test_predictions > 0.5
     acc = accuracy_score(test_labels, test_predictions_)
     cls_report = classification_report(test_labels, test_predictions_, digits=4)

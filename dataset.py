@@ -12,28 +12,50 @@ class BagDataset(Dataset):
     def get_bag_feats(self, csv_file_df, args):
         # if args.dataset == 'TCGA-lung-default':
         #     feats_csv_path = 'datasets/tcga-dataset/tcga_lung_data_feats/' + csv_file_df.iloc[0].split('/')[1] + '.csv'
-
-        if args.dataset == 'NSCLC':
-            if 'LUAD' in csv_file_df.iloc[1]:
-                pre_path = 'Feats'
-                slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
-                slide_name = slide_name.split('.')[0]
-                feats_csv_path = pre_path + '/LUAD/LUAD_Diagnostic_Kimia_20x/' + slide_name + '/features.pt'
+        if args.extractor == 'Kimia':
+            if args.dataset == 'NSCLC':
+                if 'LUAD' in csv_file_df.iloc[1]:
+                    pre_path = 'Feats'
+                    slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
+                    slide_name = slide_name.split('.')[0]
+                    feats_csv_path = pre_path + '/LUAD/LUAD_Diagnostic_Kimia_20x/' + slide_name + '/features.pt'
+                else:
+                    pre_path = 'Feats'
+                    slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
+                    slide_name = slide_name.split('.')[0]
+                    feats_csv_path = pre_path + '/LUSC/LUSC_Diagnostic_Kimia_20x/' + slide_name + '/features.pt'
+            elif args.dataset == 'Camelyon':
+                feats = csv_file_df.iloc[1].split('\n')[0]
+                feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
+                # feats = feats.replace('v0', 'v2')
+                # feats_csv_path = feats + '/features.pt'
+                feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_Kimia_20x')
+                feats_csv_path = feats + '/features.pt'
             else:
-                pre_path = 'Feats'
-                slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
-                slide_name = slide_name.split('.')[0]
-                feats_csv_path = pre_path + '/LUSC/LUSC_Diagnostic_Kimia_20x/' + slide_name + '/features.pt'
-        elif args.dataset == 'Camelyon':
-            feats = csv_file_df.iloc[1].split('\n')[0]
-            feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
-            # feats = feats.replace('v0', 'v2')
-            # feats_csv_path = feats + '/features.pt'
-            feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_Kimia_20x')
-            feats_csv_path = feats + '/features.pt'
-        else:
-            feats_csv_path = csv_file_df.iloc[1]
-            feats_csv_path = feats_csv_path.split('\n')[0] + '/features.pt'
+                feats_csv_path = csv_file_df.iloc[1]
+                feats_csv_path = feats_csv_path.split('\n')[0] + '/features.pt'
+        elif args.extractor == 'Resnet':
+            if args.dataset == 'NSCLC':
+                if 'LUAD' in csv_file_df.iloc[1]:
+                    pre_path = 'Feats'
+                    slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
+                    slide_name = slide_name.split('.')[0]
+                    feats_csv_path = pre_path + '/LUAD/LUAD_Diagnostic_ResNet_20x/' + slide_name + '/features.pt'
+                else:
+                    pre_path = 'Feats'
+                    slide_name = csv_file_df.iloc[1].split('/')[-1].split('\n')[0]
+                    slide_name = slide_name.split('.')[0]
+                    feats_csv_path = pre_path + '/LUSC/LUSC_Diagnostic_ResNet_20x/' + slide_name + '/features.pt'
+            elif args.dataset == 'Camelyon':
+                feats = csv_file_df.iloc[1].split('\n')[0]
+                feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
+                # feats = feats.replace('v0', 'v2')
+                # feats_csv_path = feats + '/features.pt'
+                feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_ResNet_20x')
+                feats_csv_path = feats + '/features.pt'
+            else:
+                feats_csv_path = csv_file_df.iloc[1]
+                feats_csv_path = feats_csv_path.split('\n')[0] + '/features.pt'
 
         feats = torch.load(feats_csv_path).cuda()
         feats = feats[np.random.permutation(len(feats))]
