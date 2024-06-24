@@ -62,7 +62,7 @@ def inverse_convert_label(labels):
 def train(train_df, milnet, criterion, optimizer, args, n_train, weight_kl):
     milnet.train()
     total_loss = 0
-    for i, (bag_label, bag_feats) in enumerate(train_df):
+    for i, (bag_label, bag_feats, _) in enumerate(train_df):
         optimizer.zero_grad()
         if torch.isnan(bag_feats).sum() > 0:
             continue
@@ -104,7 +104,7 @@ def test(test_df, milnet, criterion, args, n_test):
     test_labels = []
     test_predictions = []
     with torch.no_grad():
-        for i, (bag_label, bag_feats) in enumerate(test_df):
+        for i, (bag_label, bag_feats, _) in enumerate(test_df):
             # bag_label, bag_feats = get_bag_feats_v2(test_feats[i], test_gts[i], args)
             bag_label = bag_label.cuda()
             bag_feats = bag_feats.cuda()
@@ -360,7 +360,7 @@ def main():
                                                        optimizer_adam1, epoch, criterion,kl_weight=kl)
                             print('epoch time:{}'.format(time.time() - start_time))
                             # test_loss_bag, avg_score, aucs, thresholds_optimal = test(test_loader, milnet, criterion, optimizer, args, log_path, epoch)
-                            test_loss_bag, avg_score, aucs, thresholds_optimal = \
+                            test_loss_bag, avg_score, aucs, thresholds_optimal, res = \
                                 testDTFD(args, test_loader, DTFDclassifier, DTFDdimReduction, DTFDattention, \
                                          DTFDattCls, criterion,  epoch)
 
@@ -447,7 +447,7 @@ def trainDTFD(args, train_df, classifier, dimReduction, attention, UClassifier, 
     tIDX = list(range(numSlides))
     random.shuffle(tIDX)
 
-    for i, (bag_label, bag_feats) in enumerate(train_df):
+    for i, (bag_label, bag_feats, _) in enumerate(train_df):
         # if i < 265: continue
         bag_label = bag_label.cuda()
         bag_feats = bag_feats.cuda()
@@ -550,7 +550,7 @@ def testDTFD(args, test_df, classifier, dimReduction, attention, UClassifier, \
     test_predictions = []
     Tensor = torch.cuda.FloatTensor
     with torch.no_grad():
-        for i, (bag_label, bag_feats) in enumerate(test_df):
+        for i, (bag_label, bag_feats, _) in enumerate(test_df):
             label = bag_label.numpy()
             bag_label = bag_label.cuda()
             bag_feats = bag_feats.cuda()
@@ -684,7 +684,7 @@ def testDTFD(args, test_df, classifier, dimReduction, attention, UClassifier, \
                                                                              sum(auc_value) / len(auc_value) * 100))
     print('\n', cls_report)
 
-    return total_loss / len(test_df), avg_score, auc_value, thresholds_optimal
+    return total_loss / len(test_df), avg_score, auc_value, thresholds_optimal, res
 
 def test_generalizability(args):
     if args.model == 'abmil':

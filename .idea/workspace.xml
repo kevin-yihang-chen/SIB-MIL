@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="TransMIL added">
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Different Extractors added">
+      <change afterPath="$PROJECT_DIR$/Confidence Evaluation" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Confidence_Eval.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OOD_detect.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Uncertainty Measure.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/DTFD/Attention.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/DTFD/Attention.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2csv_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/2csv_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/abmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/abmil.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -66,6 +73,9 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Python.2csv_file.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Confidence_Eval.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Uncertainty Measure.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.train_remix.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -87,7 +97,77 @@
       <recent name="D:\Research\UAMIL" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.2csv_file">
+    <configuration name="2csv_file" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UAMIL" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/2csv_file.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Confidence_Eval" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UAMIL" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Confidence_Eval.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Uncertainty Measure" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UAMIL" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="CUAD_VISIBILE_DEVICES" value="0" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Uncertainty Measure.py" />
+      <option name="PARAMETERS" value="--num_epochs 200 --model abmil --num_workers 4 --model_dir /home/yhchen/Documents/UAMIL/Weights/abmil/model.pth" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
       <option name="ENV_FILES" value="" />
@@ -95,7 +175,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="CUDA_VISIBLE_DEVICES" value="7" />
+        <env name="CUDA_VISIBLE_DEVICES" value="0" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -112,8 +192,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.2csv_file" />
+      <item itemvalue="Python.Confidence_Eval" />
+      <item itemvalue="Python.Uncertainty Measure" />
+      <item itemvalue="Python.main" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.2csv_file" />
+        <item itemvalue="Python.Confidence_Eval" />
+        <item itemvalue="Python.Uncertainty Measure" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -121,8 +210,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17011.127" />
-        <option value="bundled-python-sdk-48aec45f0201-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17011.127" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17890.14" />
+        <option value="bundled-python-sdk-5b207ade9991-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17890.14" />
       </set>
     </attachedChunks>
   </component>
@@ -156,6 +245,21 @@
       <workItem from="1717634601166" duration="11826000" />
       <workItem from="1718256106043" duration="2852000" />
       <workItem from="1718324357994" duration="633000" />
+      <workItem from="1718348361940" duration="6953000" />
+      <workItem from="1718547820967" duration="510000" />
+      <workItem from="1718590905070" duration="4382000" />
+      <workItem from="1718623315611" duration="1882000" />
+      <workItem from="1718674094258" duration="3442000" />
+      <workItem from="1718763837967" duration="6128000" />
+      <workItem from="1718778796292" duration="3663000" />
+      <workItem from="1718793156862" duration="1271000" />
+      <workItem from="1718851291174" duration="4988000" />
+      <workItem from="1718880427552" duration="1751000" />
+      <workItem from="1718945207434" duration="5430000" />
+      <workItem from="1718954723508" duration="3911000" />
+      <workItem from="1719108034722" duration="68000" />
+      <workItem from="1719108165724" duration="3549000" />
+      <workItem from="1719195063109" duration="677000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -197,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1717643000389</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Different Extractors added">
+      <option name="closed" value="true" />
+      <created>1718348415012</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1718348415012</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,10 +321,25 @@
     <MESSAGE value="Readme Added" />
     <MESSAGE value="dsmil revised" />
     <MESSAGE value="TransMIL added" />
-    <option name="LAST_COMMIT_MESSAGE" value="TransMIL added" />
+    <MESSAGE value="Different Extractors added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Different Extractors added" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/2csv_file.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/UAMIL$Confidence_Eval.coverage" NAME="Confidence_Eval Coverage Results" MODIFIED="1718953560281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$Uncertainty_Measure.coverage" NAME="Uncertainty Measure Coverage Results" MODIFIED="1718953366946" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="main Coverage Results" MODIFIED="1716273564524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1717655999762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$2csv_file.coverage" NAME="2csv_file Coverage Results" MODIFIED="1719111006420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1718548148170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

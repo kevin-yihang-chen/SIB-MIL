@@ -27,8 +27,6 @@ class BagDataset(Dataset):
             elif args.dataset == 'Camelyon':
                 feats = csv_file_df.iloc[1].split('\n')[0]
                 feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
-                # feats = feats.replace('v0', 'v2')
-                # feats_csv_path = feats + '/features.pt'
                 feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_Kimia_20x')
                 feats_csv_path = feats + '/features.pt'
             else:
@@ -49,10 +47,12 @@ class BagDataset(Dataset):
             elif args.dataset == 'Camelyon':
                 feats = csv_file_df.iloc[1].split('\n')[0]
                 feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
-                # feats = feats.replace('v0', 'v2')
+                # feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_ResNet_20x')
                 # feats_csv_path = feats + '/features.pt'
-                feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_ResNet_20x')
-                feats_csv_path = feats + '/features.pt'
+                feats = feats.replace('simclr_files_256_v0', 'Camelyon16_ImageNet')
+                feats = feats.replace('training', 'train')
+                feats = feats.replace('testing', 'test')
+                feats_csv_path = feats + '.pt'
             else:
                 feats_csv_path = csv_file_df.iloc[1]
                 feats_csv_path = feats_csv_path.split('\n')[0] + '/features.pt'
@@ -79,7 +79,7 @@ class BagDataset(Dataset):
 
     def __getitem__(self, idx):
         label, feats = self.get_bag_feats(self.train_path.iloc[idx], self.args)
-        return label, feats
+        return label, feats, self.train_path.iloc[idx].iloc[1]
 
     def __len__(self):
         return len(self.train_path)

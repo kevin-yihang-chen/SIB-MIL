@@ -29,6 +29,33 @@ class BClassifier(nn.Module):
         Y_prob = self.classifier(M)
         return Y_prob
 
+
+class BClassifier_Dropout(nn.Module):
+    def __init__(self, input_size, num_classes):
+        super(BClassifier, self).__init__()
+        self.L = input_size
+        self.D = input_size
+        self.K = 1
+
+        self.attention = nn.Sequential(
+            nn.Linear(self.L, self.D),
+            nn.ReLU(),
+            nn.Linear(self.D, self.K)
+        )
+
+        self.classifier = nn.Sequential(
+            nn.Linear(self.D, num_classes)
+        )
+
+    def forward(self, x):
+        H = x
+        A = self.attention(H)  # NxK
+        A = torch.transpose(A, 1, 0)  # KxN
+        A = F.softmax(A, dim=1)  # softmax over N
+        M = torch.mm(A, H)  # KxL
+        Y_prob = self.classifier(M)
+        return Y_prob
+
 class ABMIL(BaseModel):
     def __init__(self,input_size, num_classes,  layer_type='HS', priors=None, activation_type="relu"):
         super(ABMIL, self).__init__(layer_type, priors, activation_type)

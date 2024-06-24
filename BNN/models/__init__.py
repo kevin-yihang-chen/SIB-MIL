@@ -11,7 +11,7 @@ from .ResNet101 import ResNet101
 from .VGG import VGG
 from .MLP import MLP
 from .ViT import ViT
-from .abmil import ABMIL
+from .abmil import ABMIL, BClassifier
 from .dsmil import DSMIL
 from .wrappers import DeepEnsemble
 from .TransMIL import TransMIL
