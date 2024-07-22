@@ -215,13 +215,15 @@ def optimal_thresh(fpr, tpr, thresholds, p=0):
 
 def main():
     parser = argparse.ArgumentParser(description='Train MIL Models with ReMix')
-    parser.add_argument('--feats_size', default=512, type=int, help='Dimension of the feature size [512]')
+    parser.add_argument('--feats_size', default=1024, type=int, help='Dimension of the feature size [512]')
     parser.add_argument('--lr', default=0.0002, type=float, help='Initial learning rate [0.0002]')
     parser.add_argument('--num_epochs', default=50, type=int, help='Number of total training epochs')
     parser.add_argument('--gpu', type=int, default=0, help='GPU ID(s) [0]')
     parser.add_argument('--weight_decay', default=5e-3, type=float, help='Weight decay [5e-3]')
-    parser.add_argument('--dataset', default='BRACS_WSI', type=str,
+    parser.add_argument('--dataset', default='COAD', type=str,
                         choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], help='Dataset folder name')
+    parser.add_argument('--dataset_out', default='BRCA', type=str,
+                        choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC', 'BRCA'], help='Dataset folder name')
     parser.add_argument('--task', default='binary', choices=['binary', 'staging'], type=str, help='Downstream Task')
     parser.add_argument('--model', default='dsmil', type=str,
                         choices=['dsmil', 'abmil', 'transmil', 'DTFD','abmil_original'], help='MIL model')
@@ -239,13 +241,11 @@ def main():
     parser.add_argument('--wandb', action='store_true', help='Use wandb for logging')
     parser.add_argument('--distill', default='MaxMinS', type=str, help='Distillation method')
     parser.add_argument('--weight_path', default=None, type=str, help='Path to pretrained weights')
-    parser.add_argument('--extractor', default='Resnet', type=str, help='Feature extractor')
+    parser.add_argument('--extractor', default='Kimia', type=str, help='Feature extractor')
     parser.add_argument('--early_stop', default=None, type=int)
     args = parser.parse_args()
 
     assert args.dataset in ['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], 'Dataset not supported'
-    # For Camelyon, we follow DSMIL to use binary labels: 1 for positive bags and 0 for negative bags.
-    # For Unitopatho, we use one-hot encoding.
     if args.task == 'binary':
         args.num_classes = 1
     elif args.task == 'staging':
@@ -259,28 +259,22 @@ def main():
                 for kl in weight_kl:
                     config = {"lr": args.lr, "rep": t, "n_sample_train": n_train, "n_sample_test": n_test,
                               "kl_weight": kl}
-                    # ckpt_pth = setup_logger(args, first_time)
-                    # ckpt_pth = f'/home/yhchen/Documents/HDPMIL/datasets/{args.dataset}/ckpt.pth'
+
                     logging.info(f'current args: {args}')
                     logging.info(f'augmentation mode: {args.mode}')
 
-                    # milnet = DP_Cluster(concentration=0.1,trunc=2,eta=1,batch_size=1,epoch=20, dim=512).cuda()
+
                     prior = {'horseshoe_scale': None, 'global_cauchy_scale': 1., 'weight_cauchy_scale': 1.,
                              'beta_rho_scale': -5.,
                              'log_tau_mean': None, 'log_tau_rho_scale': -5., 'bias_rho_scale': -5., 'log_v_mean': None,
                              'log_v_rho_scale': -5.}
                     # prepare model
                     if args.model == 'abmil':
-                        # milnet = abmil.BClassifier(args.feats_size, args.num_classes).cuda()
-                        # milnet = BClassifier(args.feats_size, args.num_classes).cuda()
                         milnet = ABMIL(args.feats_size, args.num_classes,  layer_type='HS', priors=prior,
                                        activation_type='relu').cuda()
                     elif args.model == 'abmil_original':
                         milnet = BClassifier(args.feats_size, args.num_classes).cuda()
                     elif args.model == 'dsmil':
-                        # i_classifier = dsmil.FCLayer(in_size=args.feats_size, out_size=args.num_classes).cuda()
-                        # b_classifier = dsmil.BClassifier(input_size=args.feats_size, output_class=args.num_classes, dropout_v=0).cuda()
-                        # milnet = dsmil.MILNet(i_classifier, b_classifier).cuda()
                         milnet = DSMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior,
                                        activation_type='relu').cuda()
                     elif args.model == 'transmil':
@@ -294,8 +288,6 @@ def main():
                         DTFDattCls = Attention_with_Classifier( L=mDim, n_classes=args.num_classes, \
                                                                droprate=0.0,layer_type='HS', priors=prior,
                                           activation_type='relu').cuda()
-                        # DTFDattCls = Attention_with_Classifier(L=mDim, n_classes=args.num_classes, \
-                        #                                        droprate=0.0).cuda()
                         milnet = [DTFDclassifier, DTFDattention, DTFDdimReduction, DTFDattCls]
                     else:
                         raise NotImplementedError
@@ -342,22 +334,22 @@ def main():
                     train_path = os.path.join('datasets_csv', args.dataset,
                                               f'{args.task}_{args.dataset}_train' + '.csv')
                     train_path = pd.read_csv(train_path)
-                    test_path = os.path.join('datasets_csv', args.dataset,
-                                             f'{args.task}_{args.dataset}_testval' + '.csv')
+                    test_path = os.path.join('datasets_csv', args.dataset_out,
+                                             f'{args.task}_{args.dataset_out}_testval' + '.csv')
                     test_path = pd.read_csv(test_path)
 
                     trainset = BagDataset(train_path, args)
-                    train_loader = DataLoader(trainset, 1, shuffle=True, num_workers=args.num_workers, )
+                    train_loader = DataLoader(trainset, 1, shuffle=True, num_workers=args.num_workers)
                     testset = BagDataset(test_path, args)
                     test_loader = DataLoader(testset, 1, shuffle=True, num_workers=args.num_workers)
 
                     config["rep"] = t
                     if args.wandb:
-                        wandb.init(name=f'{args.task}_{args.dataset}_{args.model}_{args.extractor}',
+                        wandb.init(name=f'SIBMIL_OOD_Generalize_{args.dataset}_{args.model}_{args.extractor}',
                                    project='UAMIL',
                                    entity='yihangc',
                                    notes='',
-                                   mode='online',  # disabled/online/offline
+                                   mode='online',
                                    config=config,
                                    tags=[])
 
@@ -398,7 +390,6 @@ def main():
                                                            DTFDdimReduction, DTFDattention, DTFDattCls, optimizer_adam0,
                                                            optimizer_adam1, epoch, criterion,kl_weight=kl)
                                 print('epoch time:{}'.format(time.time() - start_time))
-                                # test_loss_bag, avg_score, aucs, thresholds_optimal = test(test_loader, milnet, criterion, optimizer, args, log_path, epoch)
                                 test_loss_bag, avg_score, aucs, thresholds_optimal, res = \
                                     testDTFD(args, test_loader, DTFDclassifier, DTFDdimReduction, DTFDattention, \
                                              DTFDattCls, criterion,  epoch)

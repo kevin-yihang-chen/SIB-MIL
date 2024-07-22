@@ -19,8 +19,8 @@ from torch.utils.data import DataLoader
 # from Opt.lookahead import Lookahead
 # from Opt.radam import RAdam
 # from BNN.models.DTFD.network import DimReduction, get_cam_1d
-# from BNN.models.DTFD.Attention import Attention_Gated as Attention
-# from BNN.models.DTFD.Attention import Attention_with_Classifier, Classifier_1fc
+# from BNN.models.DTFD.Heatmap import Attention_Gated as Heatmap
+# from BNN.models.DTFD.Heatmap import Attention_with_Classifier, Classifier_1fc
 import random
 import time
 import copy
@@ -48,7 +48,7 @@ def get_UM(data_loader, args):
                 pred = np.round(bag_prediction)
             else:
                 bag_prediction = torch.nn.Softmax(dim=1)(bag_prediction)
-                conf = torch.max(bag_prediction).item()
+                max_prob = torch.max(bag_prediction).item()
             if pred != bag_label:
                 correct_predictions.append(1)
             else:

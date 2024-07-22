@@ -29,10 +29,18 @@ class BClassifier(nn.Module):
         Y_prob = self.classifier(M)
         return Y_prob
 
+    def get_attention(self, x):
+        H = x
+        A = self.attention(H)
+        return A
+
+    def get_pred(self,x):
+        return self.classifier(x)
+
 
 class BClassifier_Dropout(nn.Module):
     def __init__(self, input_size, num_classes):
-        super(BClassifier, self).__init__()
+        super(BClassifier_Dropout, self).__init__()
         self.L = input_size
         self.D = input_size
         self.K = 1
@@ -40,6 +48,7 @@ class BClassifier_Dropout(nn.Module):
         self.attention = nn.Sequential(
             nn.Linear(self.L, self.D),
             nn.ReLU(),
+            nn.Dropout(0.5),
             nn.Linear(self.D, self.K)
         )
 
@@ -55,6 +64,12 @@ class BClassifier_Dropout(nn.Module):
         M = torch.mm(A, H)  # KxL
         Y_prob = self.classifier(M)
         return Y_prob
+
+    def get_attention(self, x):
+        H = x
+        A = self.attention(H)
+        return A
+
 
 class ABMIL(BaseModel):
     def __init__(self,input_size, num_classes,  layer_type='HS', priors=None, activation_type="relu"):
@@ -102,6 +117,16 @@ class ABMIL(BaseModel):
         Y_prob = self.classifier(M,n_samples=train_sample if Train_flag else test_sample)
         Y_prob = torch.mean(Y_prob, dim=0)
         return Y_prob
+
+    def get_attention(self, x, Train_flag=True, train_sample=1 ,test_sample=1):
+        H = x
+        A = self.fc_1(H, n_samples=train_sample if Train_flag else test_sample)
+        A = torch.mean(A, dim=0)
+        A = self.act(A)
+        A = self.fc_2(A, n_samples=train_sample if Train_flag else test_sample)
+        A = torch.mean(A, dim=0)
+        return A
+
 
 
 
