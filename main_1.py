@@ -241,7 +241,6 @@ def main():
     parser.add_argument('--weight_path', default=None, type=str, help='Path to pretrained weights')
     parser.add_argument('--extractor', default='Resnet', type=str, help='Feature extractor')
     parser.add_argument('--early_stop', default=None, type=int)
-    parser.add_argument('--BNN_type',default='HS',type=str,help='BNN type')
     args = parser.parse_args()
 
     assert args.dataset in ['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], 'Dataset not supported'
@@ -254,32 +253,29 @@ def main():
     n_sample_test = [1]
     n_sample_train = [1]
     weight_kl = [1e-6]
-    shrinkage = [-5]
+    shrinkage = [-1,-2,-3,-4,-5,-6]
     for t in range(args.num_rep):
         for n_train in n_sample_train:
             for n_test in n_sample_test:
                 for kl in weight_kl:
                     for shrinkage_rate in shrinkage:
                         config = {"lr": args.lr, "rep": t, "n_sample_train": n_train, "n_sample_test": n_test,
-                                  "kl_weight": kl}
+                                  "kl_weight": kl,"shrinkage_log_v":shrinkage_rate}
                         # ckpt_pth = setup_logger(args, first_time)
                         # ckpt_pth = f'/home/yhchen/Documents/HDPMIL/datasets/{args.dataset}/ckpt.pth'
                         logging.info(f'current args: {args}')
                         logging.info(f'augmentation mode: {args.mode}')
 
                         # milnet = DP_Cluster(concentration=0.1,trunc=2,eta=1,batch_size=1,epoch=20, dim=512).cuda()
-                        if args.BNN_type == 'HS':
-                            prior = {'horseshoe_scale': None, 'global_cauchy_scale': 1., 'weight_cauchy_scale': 1.,
-                                     'beta_rho_scale': -5.,
-                                     'log_tau_mean': None, 'log_tau_rho_scale': -5, 'bias_rho_scale': -5., 'log_v_mean': None,
-                                     'log_v_rho_scale': -5.}
-                        if args.BNN_type == 'Gauss':
-                            prior = {'prior_mu': 0,'prior_sigma': 0.01, 'posterior_mu_initial': [0, 0.01],'posterior_rho_initial': [-3, 0.01]}
+                        prior = {'horseshoe_scale': None, 'global_cauchy_scale': 1., 'weight_cauchy_scale': 1.,
+                                 'beta_rho_scale': -5.,
+                                 'log_tau_mean': None, 'log_tau_rho_scale': -5., 'bias_rho_scale': -5., 'log_v_mean': None,
+                                 'log_v_rho_scale': shrinkage_rate}
                         # prepare model
                         if args.model == 'abmil':
                             # milnet = abmil.BClassifier(args.feats_size, args.num_classes).cuda()
                             # milnet = BClassifier(args.feats_size, args.num_classes).cuda()
-                            milnet = ABMIL(args.feats_size, args.num_classes,  layer_type=args.BNN_type, priors=prior,
+                            milnet = ABMIL(args.feats_size, args.num_classes,  layer_type='HS', priors=prior,
                                            activation_type='relu').cuda()
                         elif args.model == 'abmil_original':
                             milnet = BClassifier(args.feats_size, args.num_classes).cuda()
@@ -287,10 +283,10 @@ def main():
                             # i_classifier = dsmil.FCLayer(in_size=args.feats_size, out_size=args.num_classes).cuda()
                             # b_classifier = dsmil.BClassifier(input_size=args.feats_size, output_class=args.num_classes, dropout_v=0).cuda()
                             # milnet = dsmil.MILNet(i_classifier, b_classifier).cuda()
-                            milnet = DSMIL(args.feats_size, args.num_classes, layer_type=args.BNN_type, priors=prior,
+                            milnet = DSMIL(args.feats_size, args.num_classes, layer_type='HS', priors=prior,
                                            activation_type='relu').cuda()
                         elif args.model == 'transmil':
-                            milnet = TransMIL(args.feats_size, args.num_classes,  layer_type=args.BNN_type, priors=prior,
+                            milnet = TransMIL(args.feats_size, args.num_classes,  layer_type='HS', priors=prior,
                                               activation_type='relu').cuda()
                         elif args.model == 'DTFD':
                             mDim = args.feats_size // 2
@@ -298,7 +294,7 @@ def main():
                             DTFDattention = Attention(mDim).cuda()
                             DTFDdimReduction = DimReduction(args.feats_size, mDim, numLayer_Res=0).cuda()
                             DTFDattCls = Attention_with_Classifier( L=mDim, n_classes=args.num_classes, \
-                                                                   droprate=0.0,layer_type=args.BNN_type, priors=prior,
+                                                                   droprate=0.0,layer_type='HS', priors=prior,
                                               activation_type='relu').cuda()
                             # DTFDattCls = Attention_with_Classifier(L=mDim, n_classes=args.num_classes, \
                             #                                        droprate=0.0).cuda()
@@ -393,7 +389,7 @@ def main():
                                     print('saving model......')
                                     best_acc = accuracy
                                     count = 0
-                                    torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.model}_{args.extractor}_{args.BNN_type}.pth')
+                                    torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.model}_{args.extractor}.pth')
                                 else:
                                     count += 1
                         else:
@@ -635,10 +631,7 @@ def testDTFD(args, test_df, classifier, dimReduction, attention, UClassifier, \
 
                 gSlidePred, bag_feat, Att_s1 = UClassifier(slide_d_feat)
                 # allSlide_pred_softmax.append(torch.softmax(gSlidePred, dim=1))
-                if args.num_classes == 1:
-                    allSlide_pred_softmax.append(torch.sigmoid(gSlidePred))  # [1,1]
-                else:
-                    allSlide_pred_softmax.append(torch.nn.Softmax(dim=1)(gSlidePred))
+                allSlide_pred_softmax.append(torch.sigmoid(gSlidePred))  # [1,1]
 
             allSlide_pred_softmax = torch.cat(allSlide_pred_softmax, dim=0)
             allSlide_pred_softmax = torch.mean(allSlide_pred_softmax, dim=0).unsqueeze(0)
@@ -683,9 +676,6 @@ def testDTFD(args, test_df, classifier, dimReduction, attention, UClassifier, \
         print(confusion_matrix(test_labels, test_predictions))
 
     else:
-        res = multiclass_metrics_fn(np.where(test_labels == 1)[1], test_predictions,
-                                    metrics=["roc_auc_weighted_ovo", "f1_weighted", "accuracy"])
-        wandb.log({'accuracy': res['accuracy'], 'f1': res['f1_weighted'], 'auc': res['roc_auc_weighted_ovo']})
         for i in range(args.num_classes):
             class_prediction_bag = copy.deepcopy(test_predictions[:, i])
             class_prediction_bag[test_predictions[:, i] >= thresholds_optimal[i]] = 1

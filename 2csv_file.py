@@ -4,9 +4,9 @@ import os
 import os.path
 curr_path = os.path.dirname(__file__)
 data_root = 'datasets_csv'
-dataset = 'BRCA'
-task = 'binary'
-if task == 'binary':
+dataset = 'BRACS_WSI'
+task = 'staging'
+if task == 'binary' or task == 'staging':
     train_labels_pth = f'{data_root}/{dataset}/{task}_{dataset}_train_label.npy'
     test_labels_pth = f'{data_root}/{dataset}/{task}_{dataset}_testval_label.npy'
     test_feats = open(f'{data_root}/{dataset}/{task}_{dataset}_testval.txt', 'r').readlines()

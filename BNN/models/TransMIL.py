@@ -103,6 +103,7 @@ class TransMIL(BaseModel):
         self.layer2 = TransLayer(dim=512)
         self.norm = nn.LayerNorm(512)
         self._fc2 = self.get_fc_layer(512, self.n_classes)
+        self.layer_type = layer_type
         # self._fc2 = nn.Linear(512, self.n_classes)
 
     def kl_loss(self):
@@ -148,9 +149,13 @@ class TransMIL(BaseModel):
         h = self.norm(h)[:, 0]
 
         # ---->predict
-        logits = self._fc2(h, n_samples=train_sample if Train_flag else test_sample)  # [B, n_classes]
+        if self.layer_type == "HS":
+            logits = self._fc2(h, n_samples=train_sample if Train_flag else test_sample)
+            logits = torch.mean(logits, dim=0)
+        elif self.layer_type == "Gauss":
+            logits = self._fc2(h)  # [B, n_classes]
         # logits = self._fc2(h)
-        logits = torch.mean(logits, dim=0)
+        # logits = torch.mean(logits, dim=0)
         Y_hat = torch.argmax(logits, dim=1)
         Y_prob = F.softmax(logits, dim=1)
         results_dict = {'logits': logits, 'Y_prob': Y_prob, 'Y_hat': Y_hat}

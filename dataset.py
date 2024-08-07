@@ -74,6 +74,9 @@ class BagDataset(Dataset):
                 feats = feats.replace('/data1/WSI/Patches/Features/Camelyon16', 'Feats/Camelyon')
                 feats = feats.replace('simclr_files_256_v0', 'Camelyon16_Tissue_Kimia_20x')
                 feats_csv_path = feats + '/features.pt'
+            elif args.dataset == 'BRACS_WSI':
+                feats = csv_file_df.iloc[1].split('\n')[0]
+                feats_csv_path = 'Feats/BRACS_WSI/BRACS_WSI_Kimia_20x/' + feats + '/features.pt'
             else:
                 feats = csv_file_df.iloc[1].split('\n')[0]
                 feats = feats.replace('/data1/WSI/Patches/Features/COAD', 'Feats/COAD')
@@ -100,6 +103,9 @@ class BagDataset(Dataset):
                 feats = feats.replace('training', 'train')
                 feats = feats.replace('testing', 'test')
                 feats_csv_path = feats + '.pt'
+            elif args.dataset == 'BRACS_WSI':
+                feats = csv_file_df.iloc[1].split('\n')[0]
+                feats_csv_path = 'Feats/BRACS_WSI/BRACS_WSI_Kimia_20x/' + feats + '/features.pt'
             else:
                 feats_csv_path = csv_file_df.iloc[1]
                 feats_csv_path = feats_csv_path.split('\n')[0] + '/features.pt'
@@ -115,15 +121,15 @@ class BagDataset(Dataset):
             raise NotImplementedError
         feats = torch.load(feats_csv_path).cuda()
         feats = feats[np.random.permutation(len(feats))]
-        # label = np.zeros(args.num_classes)
-        # if args.num_classes == 1:
-        #     label[0] = csv_file_df.iloc[0]
-        # else:
-        #     # if int(csv_file_df.iloc[1]) <= (len(label) - 1):
-        #     #     label[int(csv_file_df.iloc[1])] = 1
-        #     label = csv_file_df.iloc[0]
-        label = csv_file_df.iloc[0]
-        label = torch.tensor(np.array(label),dtype=float).unsqueeze(dim=0)
+        label = np.zeros(args.num_classes)
+        if args.num_classes == 1:
+            label[0] = csv_file_df.iloc[0]
+        else:
+            if int(csv_file_df.iloc[0]) <= (len(label) - 1):
+                label[int(csv_file_df.iloc[0])] = 1
+            # label = csv_file_df.iloc[0]
+        # label = csv_file_df.iloc[0]
+        label = torch.tensor(np.array(label))
 
         return label, feats
 

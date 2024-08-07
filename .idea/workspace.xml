@@ -4,167 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="OOD draft">
-      <change afterPath="$PROJECT_DIR$/Get_Attention.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Heatmap/VisHeatmap.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OOD_bag.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OOD_generalization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/OOD_instance.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Slice_CSV.py" afterDir="false" />
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="OOD Added">
+      <change afterPath="$PROJECT_DIR$/main_1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2csv_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/2csv_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/benchmark.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/checkpoint.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/DeepEnsembleAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/DeepEnsembleLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/GaussAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/GaussResNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/HSAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/HSResNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MCDAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MFVIAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MFVILeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MFVIResNet101.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/MFVIResNet50.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2ResNet101.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2ResNet50.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2VGG.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/R2D2VIT.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/RADAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR10/RADLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/DeepEnsembleAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/DeepEnsembleLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/GaussAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/HSAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/MCDAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/MFVIAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/R2D2AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/R2D2ResNet101.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/R2D2ResNet50.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/CIFAR100/RADAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/DeepEnsembleAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/DeepEnsembleLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/GaussAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/HSAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/MCDAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/MFVIAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/R2D2AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/R2D2ResNet50.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/ImageNet/RADAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/DeepEnsembleAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/DeepEnsembleLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/GaussAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/HSAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/MCDAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/MFVIAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/R2D2AlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/R2D2ResNet101.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/R2D2ResNet50.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Classification/TinyImageNet/RADAlexNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/HorseshoeLeNet_FashionMNIST.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/HorseshoeLeNet_ImageNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/HorseshoeSimpleCNN_MNIST.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/MFVILeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/FashionMNIST/RADLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/MFVILeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/OMIGLOT/RADLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/GaussLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/MCDLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/MFVILeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/CIFAR10/SVHN/RADLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/MNIST/FashionMNIST/HSLeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/MNIST/FashionMNIST/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/OOD/MNIST/OMIGLOT/R2D2LeNet.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/R2D2CondAlexNet_CIFAR10.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/R2D2LeNet_FashionMNIST.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/GaussianMLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/HSMLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/MCD_MLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/MFVI_MLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/R2D2MLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/configs/Regression/RAD_MLP_Simulation.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/data.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/evaluators/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/evaluators/evaluator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/globals.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/mfviConv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/mfviLinear.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/r2d2CondConv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/r2d2CondLinear.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/r2d2Conv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/r2d2Linear.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/radialConv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/layers/radialLinear.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/AlexNet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/BViT.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/CNN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/LeNet.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/MLP.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/ResNet101.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/ResNet50.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/SimpleCNN.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/ViT.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/abmil.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/abmil.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/wrappers/DeepEnsemble.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/wrappers/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/parse.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/simulate.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/tests/test_gig_sampling.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/tests/test_horseshoe.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/tests/test_r2d2_conv.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/tests/test_r2d2linear.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/MCdropout_linreg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/horseshoe_bnn_linreg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/r2d2_bnn_linreg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/train_classification.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/train_mcdropout_linreg.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/train_regression.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/trainer.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/trainer/uncertainty_bnn.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/visualize.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOD_detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOD_detect.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Uncertainty Measure.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BNN/models/TransMIL.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/TransMIL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -256,7 +100,7 @@
       <recent name="D:\Research\UAMIL" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.OOD_generalization">
+  <component name="RunManager" selected="Python.main">
     <configuration name="2csv_file" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
       <option name="ENV_FILES" value="" />
@@ -326,29 +170,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Slice_CSV" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="UAMIL" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Slice_CSV.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="VisHeatmap" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
       <option name="ENV_FILES" value="" />
@@ -372,20 +193,43 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UAMIL" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="--model abmil --num_epochs 100 --dataset BRACS_WSI --task staging --feats_size 512 --extractor Resnet --num_workers 2 --num_rep 1 --wandb" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.2csv_file" />
       <item itemvalue="Python.Get_Attention" />
       <item itemvalue="Python.OOD_generalization" />
-      <item itemvalue="Python.Slice_CSV" />
       <item itemvalue="Python.VisHeatmap" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.OOD_generalization" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.2csv_file" />
+        <item itemvalue="Python.OOD_generalization" />
         <item itemvalue="Python.VisHeatmap" />
         <item itemvalue="Python.Get_Attention" />
-        <item itemvalue="Python.Slice_CSV" />
       </list>
     </recent_temporary>
   </component>
@@ -469,6 +313,16 @@
       <workItem from="1721374018031" duration="43000" />
       <workItem from="1721374074434" duration="4236000" />
       <workItem from="1721571731807" duration="756000" />
+      <workItem from="1721638802103" duration="1411000" />
+      <workItem from="1721647839197" duration="2004000" />
+      <workItem from="1721719575639" duration="2469000" />
+      <workItem from="1722233676219" duration="2406000" />
+      <workItem from="1722305374423" duration="8549000" />
+      <workItem from="1722406011410" duration="599000" />
+      <workItem from="1722491975144" duration="2750000" />
+      <workItem from="1722523104628" duration="209000" />
+      <workItem from="1722580839895" duration="3131000" />
+      <workItem from="1722824380826" duration="6373000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -526,7 +380,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719195760505</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="OOD Added">
+      <option name="closed" value="true" />
+      <created>1721638842423</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1721638842423</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,20 +402,16 @@
     <MESSAGE value="TransMIL added" />
     <MESSAGE value="Different Extractors added" />
     <MESSAGE value="OOD draft" />
-    <option name="LAST_COMMIT_MESSAGE" value="OOD draft" />
+    <MESSAGE value="OOD Added" />
+    <option name="LAST_COMMIT_MESSAGE" value="OOD Added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>509</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>462</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/2csv_file.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -563,13 +421,13 @@
     <SUITE FILE_PATH="coverage/UAMIL$OOD_bag__1_.coverage" NAME="OOD_bag (1) Coverage Results" MODIFIED="1719364344696" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$OOD_bag.coverage" NAME="OOD_bag Coverage Results" MODIFIED="1720162452412" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Slice_CSV.coverage" NAME="Slice_CSV Coverage Results" MODIFIED="1720599081112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1720572970824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1722328460669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Confidence_Eval.coverage" NAME="Confidence_Eval Coverage Results" MODIFIED="1718953560281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="main Coverage Results" MODIFIED="1716273564524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$OOD_instance.coverage" NAME="OOD_instance Coverage Results" MODIFIED="1720448921181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Get_Attention__1_.coverage" NAME="Get_Attention Coverage Results" MODIFIED="1720599263559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$OOD_generalization.coverage" NAME="OOD_generalization Coverage Results" MODIFIED="1721378475009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/UAMIL$2csv_file.coverage" NAME="2csv_file Coverage Results" MODIFIED="1721378316404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$2csv_file.coverage" NAME="2csv_file Coverage Results" MODIFIED="1722305528790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Get_Attention.coverage" NAME="Get_Attention Coverage Results" MODIFIED="1720693731905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$VisHeatmap.coverage" NAME="VisHeatmap Coverage Results" MODIFIED="1720765478508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Heatmap" />
   </component>
