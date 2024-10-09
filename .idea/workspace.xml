@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="OOD Added">
-      <change afterPath="$PROJECT_DIR$/main_1.py" afterDir="false" />
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme Revised">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sshConfigs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/UAMIL.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UAMIL.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2csv_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/2csv_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BNN/models/TransMIL.py" beforeDir="false" afterPath="$PROJECT_DIR$/BNN/models/TransMIL.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +48,8 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kevin-yihang-chen/UAMIL.git&quot;,
-    &quot;accountId&quot;: &quot;756d8d6c-6807-4f7f-8c59-3724c62be856&quot;
+    &quot;url&quot;: &quot;https://github.com/kevin-yihang-chen/SIB-MIL.git&quot;,
+    &quot;accountId&quot;: &quot;99b77769-1d2c-469a-a6ea-aa4702ffccf9&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -85,13 +87,13 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Research/HDPMIL&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Research/UAMIL&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;texify.conventions&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -236,8 +238,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
-        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.22855.92" />
+        <option value="bundled-python-sdk-b068d85d1acf-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.22855.92" />
       </set>
     </attachedChunks>
   </component>
@@ -323,6 +325,20 @@
       <workItem from="1722523104628" duration="209000" />
       <workItem from="1722580839895" duration="3131000" />
       <workItem from="1722824380826" duration="6373000" />
+      <workItem from="1722993049538" duration="3132000" />
+      <workItem from="1725200637630" duration="82000" />
+      <workItem from="1725200723645" duration="297000" />
+      <workItem from="1725444785544" duration="553000" />
+      <workItem from="1725761020790" duration="1993000" />
+      <workItem from="1725847264783" duration="1669000" />
+      <workItem from="1725868627153" duration="601000" />
+      <workItem from="1725893412956" duration="430000" />
+      <workItem from="1725933381022" duration="1330000" />
+      <workItem from="1725951636621" duration="600000" />
+      <workItem from="1725954287796" duration="119000" />
+      <workItem from="1725954416489" duration="2063000" />
+      <workItem from="1727073793681" duration="3606000" />
+      <workItem from="1728458700762" duration="349000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -388,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721638842423</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Readme Revised">
+      <option name="closed" value="true" />
+      <created>1722993155795</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1722993155795</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +427,8 @@
     <MESSAGE value="Different Extractors added" />
     <MESSAGE value="OOD draft" />
     <MESSAGE value="OOD Added" />
-    <option name="LAST_COMMIT_MESSAGE" value="OOD Added" />
+    <MESSAGE value="Readme Revised" />
+    <option name="LAST_COMMIT_MESSAGE" value="Readme Revised" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
