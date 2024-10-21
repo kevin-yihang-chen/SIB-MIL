@@ -69,7 +69,7 @@ def visualize1(node_feat_mask, wsi_name, patches_coords, poly_coords, img, level
     for coords in poly_coords:
         mag_fac = 2 ** (level)
         coords = coords.reshape((-1, 1, 2)) / mag_fac
-        img = cv2.polylines(img, np.int32([coords]), False, (255, 0, 0), thickness=4)
+        img = cv2.polylines(img, np.int32([coords]), False, (127, 255, 0), thickness=6)
 
     output_name = os.path.join('./Graphs_Annotated', wsi_name + ".png")
     imsave(output_name, np.uint8(img))
@@ -153,7 +153,8 @@ def main():
         node_feat_mask = (node_feat_mask-np.min(node_feat_mask))/(np.max(node_feat_mask)-np.min(node_feat_mask))
         patches_coords = [(int(X[i]/2**level),int(Y[i]/2**level)) for i in range(len(X))]
         labels, poly_coords = get_ground_truths(slide, patches_coords, level)
-        visualize(node_feat_mask,wsi_name,patches_coords,poly_coords,img,level,args)
+        # visualize(node_feat_mask,wsi_name,patches_coords,poly_coords,img,level,args)
+        visualize1(node_feat_mask,wsi_name,patches_coords,poly_coords,img,level)
 
 if __name__ == '__main__':
     main()
