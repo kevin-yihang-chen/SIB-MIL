@@ -223,7 +223,7 @@ def main():
     parser.add_argument('--dataset', default='BRACS_WSI', type=str,
                         choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], help='Dataset folder name')
     parser.add_argument('--task', default='binary', choices=['binary', 'staging'], type=str, help='Downstream Task')
-    parser.add_argument('--model', default='dsmil', type=str,
+    parser.add_argument('--model', default='transmil', type=str,
                         choices=['dsmil', 'abmil', 'transmil', 'DTFD','abmil_original'], help='MIL model')
     # ReMix Parameters
     parser.add_argument('--num_prototypes', default=None, type=int, help='Number of prototypes per bag')

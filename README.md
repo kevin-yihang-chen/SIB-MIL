@@ -11,7 +11,7 @@
 
 
 <p align="center">
-  <img src="Framework.png" width="1000">
+  <img src="Framework-min.png" width="1000">
 </p>
 
 
@@ -44,8 +44,6 @@ python DP_feats_aggr.py --dataset LUAD
 python main.py --dataset LUAD --num_epochs 200 --feat_dim 1024 --rep 5 --task binary
 ```
 
-# Disclaimer
-Our code is based on [Remix](https://github.com/1st-Yasuo/ReMix).
 
 # Citation
 Please consider citing our paper in your publications if the project helps your research.

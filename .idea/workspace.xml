@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme Revised">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Heatmap/VisHeatmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/Heatmap/VisHeatmap.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +82,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Research/UAMIL&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Research/GT_Multimodal&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -97,7 +97,7 @@
       <recent name="D:\Research\UAMIL" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.VisHeatmap">
+  <component name="RunManager" selected="Python.main">
     <configuration name="2csv_file" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UAMIL" />
       <option name="ENV_FILES" value="" />
@@ -222,8 +222,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.VisHeatmap" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.VisHeatmap" />
         <item itemvalue="Python.2csv_file" />
         <item itemvalue="Python.OOD_generalization" />
         <item itemvalue="Python.Get_Attention" />
@@ -336,7 +336,10 @@
       <workItem from="1728458700762" duration="4112000" />
       <workItem from="1728536825036" duration="150000" />
       <workItem from="1729212623767" duration="2815000" />
-      <workItem from="1729476508480" duration="4914000" />
+      <workItem from="1729476508480" duration="6430000" />
+      <workItem from="1729561752366" duration="1694000" />
+      <workItem from="1729575009443" duration="6000" />
+      <workItem from="1729575028790" duration="4234000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -418,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728459057089</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Readme Revised">
+      <option name="closed" value="true" />
+      <created>1729492275950</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1729492275950</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -458,7 +469,7 @@
     <SUITE FILE_PATH="coverage/UAMIL$train_remix.coverage" NAME="main Coverage Results" MODIFIED="1716273564524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Get_Attention__1_.coverage" NAME="Get_Attention Coverage Results" MODIFIED="1720599263559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$VisHeatmap.coverage" NAME="VisHeatmap Coverage Results" MODIFIED="1729476986596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Heatmap" />
-    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1722328460669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/UAMIL$main.coverage" NAME="main Coverage Results" MODIFIED="1729585014535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Confidence_Eval.coverage" NAME="Confidence_Eval Coverage Results" MODIFIED="1718953560281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/UAMIL$Slice_CSV.coverage" NAME="Slice_CSV Coverage Results" MODIFIED="1720599081112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
