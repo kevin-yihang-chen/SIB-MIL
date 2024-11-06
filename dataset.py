@@ -119,14 +119,17 @@ class BagDataset(Dataset):
                 raise NotImplementedError
         else:
             raise NotImplementedError
-        feats = torch.load(feats_csv_path).cuda()
+        try:
+            feats = torch.load(feats_csv_path).cuda()
+        except:
+            print('i=1')
         feats = feats[np.random.permutation(len(feats))]
         label = np.zeros(args.num_classes)
         if args.num_classes == 1:
             label[0] = csv_file_df.iloc[0]
         else:
-            if int(csv_file_df.iloc[0]) <= (len(label) - 1):
-                label[int(csv_file_df.iloc[0])] = 1
+            if int(csv_file_df.iloc[0]-1) <= (len(label) - 1):
+                label[int(csv_file_df.iloc[0])-1] = 1
             # label = csv_file_df.iloc[0]
         # label = csv_file_df.iloc[0]
         label = torch.tensor(np.array(label))

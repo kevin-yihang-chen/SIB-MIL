@@ -31,22 +31,9 @@ We crop slides with magnification parameter set to 20 (level 0) and features are
 [//]: # (For implementation details, please refer to our previous project [WSI-HGNN]&#40;https://github.com/HKU-MedAI/WSI-HGNN&#41;.)
 
 # Model Training
-In order to train a cDP-MIL model, you need to firstly aggregate the extracted features and then use the aggrgated features for prediction. 
-So basically, the training module contains two step: aggregation and prediction.
-## DP Aggregation
 
 ```shell
-python DP_feats_aggr.py --dataset LUAD
+python main.py --backbone abmil --num_epochs 100 --dataset BRCA --task staging --feats_size 1024 --extractor Kimia --num_workers 1 --num_rep 1 --wandb
 ```
-## Model Training and Evaluation
-
-```shell
-python main.py --dataset LUAD --num_epochs 200 --feat_dim 1024 --rep 5 --task binary
-```
-
-
-# Citation
-Please consider citing our paper in your publications if the project helps your research.
-
 
 

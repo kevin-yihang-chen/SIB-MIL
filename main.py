@@ -66,7 +66,7 @@ def train(train_df, milnet, criterion, optimizer, args, n_train, weight_kl):
         bag_label = bag_label.cuda()
         bag_feats = bag_feats.cuda()
         bag_feats = bag_feats.view(-1, args.feats_size)
-        if args.model == 'dsmil':
+        if args.backbone == 'dsmil':
             # refer to dsmil code
             ins_prediction, bag_prediction, _, _ = milnet(bag_feats, Train_flag=True, train_sample=n_train)
             max_prediction, _ = torch.max(ins_prediction, 0)
@@ -74,16 +74,16 @@ def train(train_df, milnet, criterion, optimizer, args, n_train, weight_kl):
             max_loss = criterion(max_prediction.view(1, -1), bag_label.view(1, -1))
             loss = 0.5 * bag_loss + 0.5 * max_loss
             loss = loss + milnet.kl_loss() * weight_kl
-        elif args.model == 'abmil':
+        elif args.backbone == 'abmil':
             bag_prediction = milnet(bag_feats, Train_flag=True, train_sample=n_train)
             bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
             loss = bag_loss
             loss = loss + milnet.kl_loss() * weight_kl
-        elif args.model == 'abmil_original':
+        elif args.backbone == 'abmil_original':
             bag_prediction = milnet(bag_feats)
             bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
             loss = bag_loss
-        elif args.model == 'transmil':
+        elif args.backbone == 'transmil':
             output = milnet(h=bag_feats, Train_flag=True, train_sample=n_train)
             bag_prediction = output['logits']
             loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
@@ -92,7 +92,7 @@ def train(train_df, milnet, criterion, optimizer, args, n_train, weight_kl):
             raise NotImplementedError
         loss.backward()
         optimizer.step()
-        if args.model != 'abmil_original':
+        if args.backbone != 'abmil_original':
             milnet.analytic_update()
         total_loss = total_loss + loss.item()
         sys.stdout.write('\r Training bag [%d/%d] bag loss: %.4f' % (i, len(train_df), loss.item()))
@@ -111,21 +111,21 @@ def test(test_df, milnet, criterion, args, n_test):
             bag_label = bag_label.cuda()
             bag_feats = bag_feats.cuda()
             bag_feats = bag_feats.view(-1, args.feats_size)
-            if args.model == 'dsmil':
+            if args.backbone == 'dsmil':
                 ins_prediction, bag_prediction, _, _ = milnet(bag_feats, Train_flag=False, test_sample=n_test)
                 max_prediction, _ = torch.max(ins_prediction, 0)
                 bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
                 max_loss = criterion(max_prediction.view(1, -1), bag_label.view(1, -1))
                 loss = 0.5 * bag_loss + 0.5 * max_loss
-            elif args.model == 'abmil_original':
+            elif args.backbone == 'abmil_original':
                 bag_prediction = milnet(bag_feats)
                 bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
                 loss = bag_loss
-            elif args.model == 'abmil':
+            elif args.backbone == 'abmil':
                 bag_prediction = milnet(bag_feats, Train_flag=False, test_sample=n_test)
                 bag_loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
                 loss = bag_loss
-            elif args.model == 'transmil':
+            elif args.backbone == 'transmil':
                 output = milnet(bag_feats)
                 bag_prediction = output['logits']
                 loss = criterion(bag_prediction.view(1, -1), bag_label.view(1, -1))
@@ -221,9 +221,9 @@ def main():
     parser.add_argument('--gpu', type=int, default=0, help='GPU ID(s) [0]')
     parser.add_argument('--weight_decay', default=5e-3, type=float, help='Weight decay [5e-3]')
     parser.add_argument('--dataset', default='BRACS_WSI', type=str,
-                        choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], help='Dataset folder name')
+                        choices=['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC','BRCA'], help='Dataset folder name')
     parser.add_argument('--task', default='binary', choices=['binary', 'staging'], type=str, help='Downstream Task')
-    parser.add_argument('--model', default='transmil', type=str,
+    parser.add_argument('--backbone', default='transmil', type=str,
                         choices=['dsmil', 'abmil', 'transmil', 'DTFD','abmil_original'], help='MIL model')
     # ReMix Parameters
     parser.add_argument('--num_prototypes', default=None, type=int, help='Number of prototypes per bag')
@@ -244,7 +244,7 @@ def main():
     parser.add_argument('--BNN_type',default='HS',type=str,help='BNN type')
     args = parser.parse_args()
 
-    assert args.dataset in ['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC'], 'Dataset not supported'
+    assert args.dataset in ['Camelyon', 'Unitopatho', 'COAD', 'BRACS_WSI', 'NSCLC', 'BRCA'], 'Dataset not supported'
     # For Camelyon, we follow DSMIL to use binary labels: 1 for positive bags and 0 for negative bags.
     # For Unitopatho, we use one-hot encoding.
     if args.task == 'binary':
@@ -276,23 +276,23 @@ def main():
                         if args.BNN_type == 'Gauss':
                             prior = {'prior_mu': 0,'prior_sigma': 0.01, 'posterior_mu_initial': [0, 0.01],'posterior_rho_initial': [-3, 0.01]}
                         # prepare model
-                        if args.model == 'abmil':
+                        if args.backbone == 'abmil':
                             # milnet = abmil.BClassifier(args.feats_size, args.num_classes).cuda()
                             # milnet = BClassifier(args.feats_size, args.num_classes).cuda()
                             milnet = ABMIL(args.feats_size, args.num_classes,  layer_type=args.BNN_type, priors=prior,
                                            activation_type='relu').cuda()
-                        elif args.model == 'abmil_original':
+                        elif args.backbone == 'abmil_original':
                             milnet = BClassifier(args.feats_size, args.num_classes).cuda()
-                        elif args.model == 'dsmil':
+                        elif args.backbone == 'dsmil':
                             # i_classifier = dsmil.FCLayer(in_size=args.feats_size, out_size=args.num_classes).cuda()
                             # b_classifier = dsmil.BClassifier(input_size=args.feats_size, output_class=args.num_classes, dropout_v=0).cuda()
                             # milnet = dsmil.MILNet(i_classifier, b_classifier).cuda()
                             milnet = DSMIL(args.feats_size, args.num_classes, layer_type=args.BNN_type, priors=prior,
                                            activation_type='relu').cuda()
-                        elif args.model == 'transmil':
+                        elif args.backbone == 'transmil':
                             milnet = TransMIL(args.feats_size, args.num_classes,  layer_type=args.BNN_type, priors=prior,
                                               activation_type='relu').cuda()
-                        elif args.model == 'DTFD':
+                        elif args.backbone == 'DTFD':
                             mDim = args.feats_size // 2
                             DTFDclassifier = Classifier_1fc(mDim, args.num_classes, 0.0).cuda()
                             DTFDattention = Attention(mDim).cuda()
@@ -310,7 +310,7 @@ def main():
                             criterion = nn.BCEWithLogitsLoss()
                         else:
                             criterion = nn.CrossEntropyLoss()
-                        if args.model == 'DTFD':
+                        if args.backbone == 'DTFD':
                             trainable_parameters = []
                             trainable_parameters += list(DTFDclassifier.parameters())
                             trainable_parameters += list(DTFDattention.parameters())
@@ -323,7 +323,7 @@ def main():
                             scheduler1 = torch.optim.lr_scheduler.MultiStepLR(optimizer_adam1, [int(args.num_epochs / 2)],
                                                                               gamma=0.2)
                         else:
-                            if args.model == 'transmil':
+                            if args.backbone == 'transmil':
                                 print('lood ahead optimizer in transmil....')
                                 original_params = []
                                 confounder_parms = []
@@ -359,7 +359,7 @@ def main():
 
                         config["rep"] = t
                         if args.wandb:
-                            wandb.init(name=f'{args.task}_{args.dataset}_{args.model}_{args.extractor}',
+                            wandb.init(name=f'{args.task}_{args.dataset}_{args.backbone}_{args.extractor}',
                                        project='UAMIL',
                                        entity='yihangc',
                                        notes='',
@@ -393,12 +393,12 @@ def main():
                                     print('saving model......')
                                     best_acc = accuracy
                                     count = 0
-                                    torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.model}_{args.extractor}_{args.BNN_type}.pth')
+                                    torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.backbone}_{args.extractor}_{args.BNN_type}.pth')
                                 else:
                                     count += 1
                         else:
                             for epoch in range(1, args.num_epochs + 1):
-                                if args.model == 'DTFD':
+                                if args.backbone == 'DTFD':
                                     start_time = time.time()
                                     train_loss_bag = trainDTFD(args, train_loader, DTFDclassifier, \
                                                                DTFDdimReduction, DTFDattention, DTFDattCls, optimizer_adam0,
@@ -432,10 +432,10 @@ def main():
                                         if args.wandb:
                                             wandb.log({'train_loss': train_loss_bag, 'accuracy': accuracy, 'f1': f1, 'auc': auc})
                                     logging.info('Epoch [%d/%d] train loss: %.4f' % (epoch, args.num_epochs, train_loss_bag))
-                                    if args.model != 'transmil':
+                                    if args.backbone != 'transmil':
                                         scheduler.step()
-                            if args.model == 'abmil_original':
-                                torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.model}_{args.extractor}.pth')
+                            if args.backbone == 'abmil_original':
+                                torch.save(milnet.state_dict(), f'./Attention/ckpt/{args.backbone}_{args.extractor}.pth')
 
                         if args.wandb:
                             wandb.finish()
