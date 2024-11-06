@@ -21,7 +21,7 @@
 [//]: # (We use [Remix]&#40;https://github.com/1st-Yasuo/ReMix&#41; as the original codebase.)
 
 # Data Download
-We use two dataset projects in our paper for demonstration: 1) [Camelyon16](https://camelyon16.grand-challenge.org/) and 2) [TCGA](https://portal.gdc.cancer.gov/). 
+We use two dataset projects in our paper for demonstration: 1) [Camelyon16](https://camelyon16.grand-challenge.org/), 2) [TCGA](https://portal.gdc.cancer.gov/) and 3) [BRACS](https://www.bracs.icar.cnr.it/). 
 
 You may follow the instructions in the websites to download the data.
 

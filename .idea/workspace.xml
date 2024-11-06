@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme Revised">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme and Codes Revised">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -351,6 +349,7 @@
       <workItem from="1730383070286" duration="748000" />
       <workItem from="1730383841606" duration="5580000" />
       <workItem from="1730526020471" duration="418000" />
+      <workItem from="1730876668701" duration="713000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -448,7 +447,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729663963839</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Readme and Codes Revised">
+      <option name="closed" value="true" />
+      <created>1730876869707</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730876869707</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,7 +471,8 @@
     <MESSAGE value="OOD draft" />
     <MESSAGE value="OOD Added" />
     <MESSAGE value="Readme Revised" />
-    <option name="LAST_COMMIT_MESSAGE" value="Readme Revised" />
+    <MESSAGE value="Readme and Codes Revised" />
+    <option name="LAST_COMMIT_MESSAGE" value="Readme and Codes Revised" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
