@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme and Codes Revised">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="4e04872f-fc13-42ed-a5b2-4292174c31c5" name="Changes" comment="Readme Codes Revised">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,7 +349,9 @@
       <workItem from="1730383070286" duration="748000" />
       <workItem from="1730383841606" duration="5580000" />
       <workItem from="1730526020471" duration="418000" />
-      <workItem from="1730876668701" duration="713000" />
+      <workItem from="1730876668701" duration="1361000" />
+      <workItem from="1731476604423" duration="1431000" />
+      <workItem from="1731570241837" duration="807000" />
     </task>
     <task id="LOCAL-00001" summary="ABMIL &amp; DSMIL BNN version done">
       <option name="closed" value="true" />
@@ -455,7 +457,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730876869707</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Readme Codes Revised">
+      <option name="closed" value="true" />
+      <created>1730877544963</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1730877544963</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,7 +482,8 @@
     <MESSAGE value="OOD Added" />
     <MESSAGE value="Readme Revised" />
     <MESSAGE value="Readme and Codes Revised" />
-    <option name="LAST_COMMIT_MESSAGE" value="Readme and Codes Revised" />
+    <MESSAGE value="Readme Codes Revised" />
+    <option name="LAST_COMMIT_MESSAGE" value="Readme Codes Revised" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

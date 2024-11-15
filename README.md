@@ -21,12 +21,12 @@
 [//]: # (We use [Remix]&#40;https://github.com/1st-Yasuo/ReMix&#41; as the original codebase.)
 
 # Data Download
-We use two dataset projects in our paper for demonstration: 1) [Camelyon16](https://camelyon16.grand-challenge.org/), 2) [TCGA](https://portal.gdc.cancer.gov/) and 3) [BRACS](https://www.bracs.icar.cnr.it/). 
+We use three dataset projects in our paper for demonstration: 1) [Camelyon16](https://camelyon16.grand-challenge.org/), 2) [TCGA](https://portal.gdc.cancer.gov/) and 3) [BRACS](https://www.bracs.icar.cnr.it/). 
 
 You may follow the instructions in the websites to download the data.
 
 # Crop Slide and Feature Extraction
-We crop slides with magnification parameter set to 20 (level 0) and features are extracted using pretrained KimiaNet.
+We crop slides with magnification parameter set to 20 (level 0) and features are extracted using pretrained KimiaNet. We followed the pipeline of [DSMIL](https://github.com/binli123/dsmil-wsi).
 
 [//]: # (For implementation details, please refer to our previous project [WSI-HGNN]&#40;https://github.com/HKU-MedAI/WSI-HGNN&#41;.)
 
