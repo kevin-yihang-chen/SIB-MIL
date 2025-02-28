@@ -1,4 +1,4 @@
-# [CVPR2025 Under Review] SIB-MIL: Sparsity-Induced Bayesian Neural Network for Robust Multiple Instance Learning on Whole Slide Image Analysis
+# [Under Review] SIB-MIL: Sparsity-Induced Bayesian Neural Network for Robust Multiple Instance Learning on Whole Slide Image Analysis
 
 [//]: # (This repository holds the Pytorch implementation for the ReMix augmentation described in the paper )
 
